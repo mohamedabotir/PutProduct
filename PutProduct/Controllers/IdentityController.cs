@@ -1,9 +1,13 @@
-﻿using PutProduct.Services.Attributes;
+﻿ 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using PutProduct.Data;
 using PutProduct.Model;
-using PutProduct.Services.Jwt;
+using PutProduct.Services;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace PutProduct.Controllers
 {
@@ -12,11 +16,13 @@ namespace PutProduct.Controllers
     public class IdentityController : ControllerBase
     {
         private readonly UserManager<User> manager;
-        private readonly IUserService Auth;
-        public IdentityController(UserManager<User> manager,IUserService Auth)
+        private readonly IConfiguration _conf;
+         
+        public IdentityController(UserManager<User> manager,IConfiguration _conf)
         {
             this.manager = manager; 
-            this.Auth = Auth;
+            this._conf = _conf;
+           
         }
         [Route(nameof(Register))]
         [HttpPost]
@@ -39,17 +45,39 @@ namespace PutProduct.Controllers
         [Route(nameof(Login))]
        [HttpPost]
         public async Task<IActionResult> Login([FromBody]RequestUser request) {
-           
-       var result = Auth.Authenticate(request);
-            if (result.Token == null) { 
-            return Unauthorized();
+            var result = manager.Users.FirstOrDefault(x => x.Email == request.Email);
+            if (result == null) {
+                return NotFound();
             }
-            return Ok(result);
+           
+            var check = manager.CheckPasswordAsync(result, request.Password);
+            if(check==null)
+                return NotFound();
+            var claims = new[] {
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                        new Claim("UserId", result.Id.ToString()),
+                        new Claim("Name", result.UserName),
+                        new Claim("Email", result.Email)
+            };
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_conf["AppSettings:Secret"]));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(_conf["AppSettings:Issuer"],
+                _conf["AppSettings:Issuer"], claims,
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials:credentials);
+            HttpContext.Items["User"] = result;
+            
+            return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+           
+            
         }
-        [Authorize]
+
+         [HttpGet]
+         [Authorize]
         public IActionResult get() {
-            var data = HttpContext.Items["User"];
-            return Content("hello"+data);
+            var resu = HttpContext.Request.Headers.Authorization;
+            return Content("hello");
         }
     }
 }

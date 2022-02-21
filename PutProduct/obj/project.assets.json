@@ -2313,11 +2313,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\H\\source\\repos\\PutProduct\\PutProduct\\PutProduct.csproj",
+      "projectUniqueName": "C:\\Users\\H\\source\\repos\\PutProduct\\PutProduct\\PutProduct\\PutProduct.csproj",
       "projectName": "PutProduct",
-      "projectPath": "C:\\Users\\H\\source\\repos\\PutProduct\\PutProduct\\PutProduct.csproj",
+      "projectPath": "C:\\Users\\H\\source\\repos\\PutProduct\\PutProduct\\PutProduct\\PutProduct.csproj",
       "packagesPath": "C:\\Users\\H\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\H\\source\\repos\\PutProduct\\PutProduct\\obj\\",
+      "outputPath": "C:\\Users\\H\\source\\repos\\PutProduct\\PutProduct\\PutProduct\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\H\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TqukkL9ETxlwPjGCKgoT+wwVnEl1k0jzCcGYcq1trs8SuKlgKPWf1Ptmid98VRLuXp4A4CGKhBBiF2YoHkGjyg==",
+  "dgSpecHash": "0JiZ3BFRfwhG8zCC7xmrcLGqDlyNfD+cmnQw8GNjmISL1zvYHzG5G64N0edE+ibgprOroOC3/DOqMwXgrapw0A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\H\\source\\repos\\PutProduct\\PutProduct\\PutProduct.csproj",
+  "projectFilePath": "C:\\Users\\H\\source\\repos\\PutProduct\\PutProduct\\PutProduct\\PutProduct.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\H\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\H\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.2\\microsoft.aspnetcore.authentication.jwtbearer.6.0.2.nupkg.sha512",

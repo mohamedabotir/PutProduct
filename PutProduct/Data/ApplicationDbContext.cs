@@ -9,6 +9,7 @@ namespace PutProduct.Data
             : base(options)
         {
         }
+        public DbSet<User> User { get; set; }
         public ApplicationDbContext()
         {
         }

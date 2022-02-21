@@ -1,8 +1,11 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using PutProduct;
 using PutProduct.Data;
-using PutProduct.Services.Jwt;
+ 
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,19 +16,44 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
-builder.Services.Configure<AppSetting>(builder.Configuration.GetSection("AppSettings"));
-
-builder.Services.Configure<IdentityOptions>(o=>{
-    o.User.AllowedUserNameCharacters =
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+ ";
-});
+ 
+ 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
  options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddCors(); 
+ 
 builder.Services.AddTransient<ApplicationDbContext>();
 
-builder.Services.AddTransient<IUserService, UserService>();
+    var ValidAudience = builder.Configuration["AppSettings:Audience"];
+    var ValidIssuer = builder.Configuration["AppSettings:Issuer"];
+
+builder.Services
+    .AddAuthentication(x => { x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(o=>{
+        o.RequireHttpsMetadata = false;
+        o.SaveToken = true;
+        o.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            
+            ValidIssuer = builder.Configuration["AppSettings:Issuer"],
+            ValidAudience = builder.Configuration["AppSettings:Audience"],
+            IssuerSigningKey = new
+        SymmetricSecurityKey
+        (Encoding.UTF8.GetBytes
+        (builder.Configuration["AppSettings:Secret"]))
+        };
+
+
+});
+builder.Services.AddCors();
+
+
+ 
+
 
 builder.Services.AddControllers();
 
@@ -46,14 +74,12 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseCors(z => { 
-    z.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-}    
-    );
+ 
 
+app.UseCors(
+    x => { x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
 
-// custom jwt auth middleware
-app.UseMiddleware<JwtMiddleware>();
-
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 app.Run();
