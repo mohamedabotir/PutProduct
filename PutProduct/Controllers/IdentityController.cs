@@ -12,6 +12,7 @@ using System.Text;
 namespace PutProduct.Controllers
 {
     [Route("[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public class IdentityController : ControllerBase
     {
@@ -68,7 +69,7 @@ namespace PutProduct.Controllers
                 signingCredentials:credentials);
             HttpContext.Items["User"] = result;
             
-            return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+            return Ok( new JwtSecurityTokenHandler().WriteToken(token));
            
             
         }

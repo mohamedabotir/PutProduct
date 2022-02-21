@@ -18,4 +18,10 @@ export class AuthService {
   Register(data:any):Observable<any>{
     return this.auth.post(this.apiUr+"register",data);
   }
+  saveToken(token:string){
+    localStorage.setItem('token',token);
+  }
+  get Token(){
+    return localStorage.getItem('token');
+  }
 }

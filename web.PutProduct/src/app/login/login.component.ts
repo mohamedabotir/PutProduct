@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   }
 onsubmit():void{
 this.Auth.Login(this.form.value).subscribe(data=>{
-  console.log(data);
+  this.Auth.saveToken(data)
 });
 console.log(this.form)
 }
