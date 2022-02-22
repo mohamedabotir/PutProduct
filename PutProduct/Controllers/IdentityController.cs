@@ -67,7 +67,7 @@ namespace PutProduct.Controllers
                 _conf["AppSettings:Issuer"], claims,
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials:credentials);
-            HttpContext.Items["User"] = result;
+          
             
             return Ok( new JwtSecurityTokenHandler().WriteToken(token));
            
