@@ -4,6 +4,8 @@ namespace PutProduct.Data
 {
     public class Product
     {
+       
+
         public int Id { get; set; }
         [Required]
         public string Description { get; set; }
@@ -15,11 +17,22 @@ namespace PutProduct.Data
         public decimal Price { get; set; }
         
         [Required]
-        public int categoryId { get; set; }
+        public int CategoryId { get; set; }
         [Required]
-        public string userId { get; set; }
-        public User user { get; set; }
-        public string imageUrl { get; set; }
+        public string UserId { get; set; }
+        public User? User { get; set; }
+        public string ImageUrl { get; set; }
+        public Product(string description, int quantity, string name, decimal price, int categoryId, string userId, string imageUrl)
+        {
+            
+            Description = description;
+            Quantity = quantity;
+            Name = name;
+            Price = price;
+            CategoryId = categoryId;
+            UserId = userId;
+            this.ImageUrl = imageUrl;
+        }
     }
     public enum ProductType {
         Electronic,Book,Computer,GraphicCard,Other

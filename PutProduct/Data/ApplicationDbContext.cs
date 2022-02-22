@@ -9,16 +9,14 @@ namespace PutProduct.Data
             : base(options)
         {
         }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<User> User { get; set; }
-        public ApplicationDbContext()
-        {
-        }
+        public DbSet<Product>? Products { get; set; }
+        public DbSet<User>? User { get; set; }
+         
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Product>().HasOne(x => x.user).
-                WithMany(x => x.products).
-                HasForeignKey(x => x.userId).OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Product>().HasOne(x => x.User).
+                WithMany(x => x.Products).
+                HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
             base.OnModelCreating(builder);
         }
     }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0JiZ3BFRfwhG8zCC7xmrcLGqDlyNfD+cmnQw8GNjmISL1zvYHzG5G64N0edE+ibgprOroOC3/DOqMwXgrapw0A==",
+  "dgSpecHash": "KFzOjDp719vbFy5g0D/tnISTjw+lux9Fd1aXgYimdUFqjQTOpSCzoEiivOJrDZt/Q5jrBcClHWuvqJ99kSoVyw==",
   "success": true,
   "projectFilePath": "C:\\Users\\H\\source\\repos\\PutProduct\\PutProduct\\PutProduct\\PutProduct.csproj",
   "expectedPackageFiles": [
@@ -41,8 +41,12 @@
     "C:\\Users\\H\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.10.0\\microsoft.identitymodel.protocols.openidconnect.6.10.0.nupkg.sha512",
     "C:\\Users\\H\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.10.0\\microsoft.identitymodel.tokens.6.10.0.nupkg.sha512",
     "C:\\Users\\H\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\H\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\H\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\H\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\H\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\H\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\H\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512",
     "C:\\Users\\H\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\H\\.nuget\\packages\\system.configuration.configurationmanager\\4.7.0\\system.configuration.configurationmanager.4.7.0.nupkg.sha512",
     "C:\\Users\\H\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.0\\system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",

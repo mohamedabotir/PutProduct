@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PutProduct.Controllers
@@ -9,6 +8,7 @@ namespace PutProduct.Controllers
     public class HomeController : ControllerBase
     {
         [Authorize]
+        [HttpGet]
         public IActionResult Get() {
 
             return Ok("Work");

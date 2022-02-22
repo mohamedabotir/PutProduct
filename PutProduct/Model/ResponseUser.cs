@@ -10,8 +10,7 @@ namespace PutProduct.Model
         [Required]
         public string UserName { get; set; }
         [Required]
-        [JsonIgnore]
-        public string Password { get; set; }
+        
          
         public string Token { get; set; }
         public ResponseUser(User user ,string token)

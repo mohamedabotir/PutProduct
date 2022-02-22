@@ -138,3 +138,7 @@ C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\ref\Pu
 C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\PutProduct.pdb
 C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\PutProduct.genruntimeconfig.cache
 C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\PutProduct.csproj.AssemblyReference.cache
+C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll

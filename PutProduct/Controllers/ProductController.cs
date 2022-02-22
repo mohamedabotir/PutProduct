@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PutProduct.Data;
 using PutProduct.Infrastructure.Extensions;
 using PutProduct.Model;
-using System.Security.Claims;
 
 namespace PutProduct.Controllers
 {
@@ -12,25 +10,29 @@ namespace PutProduct.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        readonly private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         public ProductController(ApplicationDbContext context)
         {
             _context = context;
         }
         [Authorize]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        
         public async Task<IActionResult> Create(ProductModel product) {
             var userId = User.GetUserId();
-            var prod = new Product { 
-            Description = product.Description,
-            Price = product.Price,
-            categoryId=product.categoryId,
-            imageUrl = product.imageUrl,
-            Name = product.Name,
-            Quantity = product.Quantity,
-            userId = userId,
-            };
-            _context.Products.Add(prod);
+            var prod = new Product ( 
+            description:product.Description,
+            quantity:product.Quantity,
+            name: product.Name,
+             price:product.Price,
+            categoryId:product.CategoryId,
+            userId:userId,
+            imageUrl: product.ImageUrl
+            
+            
+            );
+            _context.Products?.Add(prod);
             await _context.SaveChangesAsync();
             return Ok(prod.Id);
         }

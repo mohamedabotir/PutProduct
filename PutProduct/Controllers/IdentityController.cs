@@ -1,13 +1,10 @@
-﻿ 
+﻿
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using PutProduct.Data;
 using PutProduct.Model;
 using PutProduct.Services;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using PutProduct.Services.jwt;
 
 namespace PutProduct.Controllers
 {
@@ -16,68 +13,57 @@ namespace PutProduct.Controllers
     [ApiController]
     public class IdentityController : ControllerBase
     {
-        private readonly UserManager<User> manager;
-        private readonly IConfiguration _conf;
+        private readonly UserManager<User> _manager;
+     
+        private readonly IJwtService _jwt;
          
-        public IdentityController(UserManager<User> manager,IConfiguration _conf)
+        public IdentityController(UserManager<User> manager,IJwtService jwt)
         {
-            this.manager = manager; 
-            this._conf = _conf;
+            this._manager = manager; 
+            this._jwt= jwt;
            
         }
         [Route(nameof(Register))]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody]Register user) {
-            User member = new User { 
-            name = user.UserName,
-            Phone = user.Phone,
-            Email = user.Email,
+            User member = new User {
+                Email = user.Email,
             UserName = user.UserName,
             PhoneNumber = user.Phone,
-            Password = user.Password,
-            
-            };
-            var result = await manager.CreateAsync(member, user.Password);
+           };
+            var result = await _manager.CreateAsync(member, user.Password);
             if (result.Succeeded)
                 return Ok();
             return BadRequest(result);
         
         }
         [Route(nameof(Login))]
-       [HttpPost]
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Login([FromBody]RequestUser request) {
-            var result = manager.Users.FirstOrDefault(x => x.Email == request.Email);
+            var result = _manager.Users.FirstOrDefault(x => x.Email == request.Email);
             if (result == null) {
                 return NotFound();
             }
            
-            var check = manager.CheckPasswordAsync(result, request.Password);
-            if(check==null)
+            var check = await _manager.CheckPasswordAsync(result, request.Password);
+            if(check==false)
                 return NotFound();
-            var claims = new[] {
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                        new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                        new Claim("UserId", result.Id.ToString()),
-                        new Claim("Name", result.UserName),
-                        new Claim("Email", result.Email)
-            };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_conf["AppSettings:Secret"]));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(_conf["AppSettings:Issuer"],
-                _conf["AppSettings:Issuer"], claims,
-                expires: DateTime.Now.AddMinutes(30),
-                signingCredentials:credentials);
-          
-            
-            return Ok( new JwtSecurityTokenHandler().WriteToken(token));
+            var token = _jwt.JwtGenerate(result.Id, result.UserName, result.Email);
+
+
+            return Ok(token);
            
             
         }
 
          [HttpGet]
          [Authorize]
-        public IActionResult get() {
-            var resu = HttpContext.Request.Headers.Authorization;
+        public IActionResult Get() {
+            
             return Content("hello");
         }
     }

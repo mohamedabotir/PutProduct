@@ -4,6 +4,8 @@ namespace PutProduct.Model
 {
     public class ProductModel
     {
+       
+
         [Required]
         [MaxLength(1200)]
         public string Description { get; set; }
@@ -15,9 +17,19 @@ namespace PutProduct.Model
         public decimal Price { get; set; }
 
         [Required]
-        public int categoryId { get; set; }
+        public int CategoryId { get; set; }
          
-        public string imageUrl { get; set; }
+        public string ImageUrl { get; set; }
+        public ProductModel(string description, int quantity, string name, decimal price, int categoryId, string imageUrl)
+        {
+            Description = description;
+            Quantity = quantity;
+            Name = name;
+            Price = price;
+            this.CategoryId = categoryId;
+            this.ImageUrl = imageUrl;
+        }
+
 
     }
 }
