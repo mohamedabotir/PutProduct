@@ -6,7 +6,7 @@ using PutProduct.Model;
 
 namespace PutProduct.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -16,10 +16,10 @@ namespace PutProduct.Controllers
             _context = context;
         }
         [Authorize]
+        [Route(nameof(Create))]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        
-        public async Task<IActionResult> Create(ProductModel product) {
+        public async Task<IActionResult> Create([FromBody]ProductModel product) {
             var userId = User.GetUserId();
             var prod = new Product ( 
             description:product.Description,
@@ -29,8 +29,6 @@ namespace PutProduct.Controllers
             categoryId:product.CategoryId,
             userId:userId,
             imageUrl: product.ImageUrl
-            
-            
             );
             _context.Products?.Add(prod);
             await _context.SaveChangesAsync();
