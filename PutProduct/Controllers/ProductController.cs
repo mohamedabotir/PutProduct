@@ -1,9 +1,6 @@
-﻿
-using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PutProduct.abstracts.Repository;
-using PutProduct.Data;
 using PutProduct.Infrastructure.Extensions;
 using PutProduct.Model;
 
@@ -20,6 +17,8 @@ namespace PutProduct.Controllers
         {
             _productRepository = productRepository;
         }
+
+
         [Authorize]
         [Route(nameof(Create))]
         [HttpPost]
@@ -31,6 +30,8 @@ namespace PutProduct.Controllers
             var result = await _productRepository.CreateProduct(product, userId);
             return Ok(result);
         } 
+
+
         [Authorize]
         [Route(nameof(MyProducts))]
         [HttpPost]
@@ -39,6 +40,42 @@ namespace PutProduct.Controllers
 
             var userId = User.GetUserId();
             var result =await _productRepository.RetrieveMyProducts(userId);
+            return Ok(result);
+        }
+
+
+        [Authorize]
+        [Route(nameof(Update))]
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> Update([FromBody]ProductModel product) {
+
+            var userId = User.GetUserId();
+            var result =await _productRepository.ModifyProduct(product,userId);
+            if (result == 0)
+                return BadRequest();
+            return Ok(result);
+        }
+
+        [Route(nameof(Products))]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> Products() {
+
+            var result = await _productRepository.RetrieveAllProducts();
+            return Ok(result);
+        }
+
+
+        [Route(nameof(RemoveProduct))]
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> RemoveProduct([FromBody]int productId) {
+            var userId = User.GetUserId();
+            var result = await _productRepository.DeleteProduct(userId, productId);
+            if (result == 0)
+                return NotFound("The Product is not Available");
             return Ok(result);
         }
     }

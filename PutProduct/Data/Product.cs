@@ -19,10 +19,10 @@ namespace PutProduct.Data
         [Required]
         public int CategoryId { get; set; }
         [Required]
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
         public User? User { get; set; }
         public string ImageUrl { get; set; }
-        public Product(string description, int quantity, string name, decimal price, int categoryId, string userId, string imageUrl)
+        public Product(string description, int quantity, string name, decimal price, int categoryId, string? userId, string imageUrl)
         {
             
             Description = description;

@@ -15,7 +15,7 @@ namespace PutProduct.Cores.Repository
             _context = context;
             _mapper = mapper;
         }
-        public async Task<int> CreateProduct(ProductModel product, string userId)
+        public async Task<int> CreateProduct(ProductModel product, string? userId)
         {
             var prod = _mapper.Map<ProductModel, Product>(product);
 
@@ -24,14 +24,24 @@ namespace PutProduct.Cores.Repository
             return prod.Id;
         }
 
-        public async Task<int> DeleteProduct(string userId, int productId)
+        public async Task<int> DeleteProduct(string? userId, int productId)
         {
-            throw new NotImplementedException();
+            var product = _context.Products?.
+                Where(x => x.UserId == userId && x.Id == productId).SingleOrDefault();
+            if (product == null)
+                return 0;
+            _context.Products?.Remove(product);
+           await _context.SaveChangesAsync();
+           return product.Id;
         }
 
-        public async Task<int> ModifyProduct(ProductModel product, string userId)
+        public async Task<int> ModifyProduct(ProductModel product, string? userId)
         {
-            throw new NotImplementedException();
+            var model = _mapper.Map<ProductModel,Product>(product);
+            model.UserId = userId;
+          var modify = _context.Products?.Update(model);
+          await _context.SaveChangesAsync();
+          return modify.Entity.Id;
         }
 
         public async Task<Product> RetrieveProduct(ProductModel product, string userId)
@@ -39,15 +49,17 @@ namespace PutProduct.Cores.Repository
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<ProductModel>?> RetrieveMyProducts(string userId)
+        public async Task<IEnumerable<ProductModel>?> RetrieveMyProducts(string? userId)
         {
             var result = _context.Products?.Where(x => x.UserId == userId);
             return _mapper.Map<IEnumerable<Product>,IEnumerable <ProductModel >>(result);
         }
 
-        public async Task<IEnumerable<Product>> RetrieveAllProducts(ProductModel product)
+        public async Task<IEnumerable<ProductModel>?> RetrieveAllProducts()
         {
-            throw new NotImplementedException();
+
+            var result = _context.Products.AsEnumerable();
+            return _mapper.Map<IEnumerable<Product>,IEnumerable<ProductModel>>(result);
         }
     }
 }

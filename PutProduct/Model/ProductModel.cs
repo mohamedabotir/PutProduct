@@ -5,8 +5,8 @@ namespace PutProduct.Model
 {
     public class ProductModel
     {
-       
 
+        public int Id  { get; set; }
         [Required]
         [MaxLength(1200)]
         public string Description { get; set; }
@@ -22,9 +22,9 @@ namespace PutProduct.Model
          
         public string ImageUrl { get; set; }
         [Required]
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
 
-        public ProductModel(string description, int quantity, string name, decimal price, int categoryId, string imageUrl,string userId)
+        public ProductModel(string description, int quantity, string name, decimal price, int categoryId, string imageUrl,string? userId)
         {
             Description = description;
             Quantity = quantity;
