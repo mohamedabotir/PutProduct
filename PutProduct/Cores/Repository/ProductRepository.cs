@@ -23,5 +23,31 @@ namespace PutProduct.Cores.Repository
             await _context.SaveChangesAsync();
             return prod.Id;
         }
+
+        public async Task<int> DeleteProduct(string userId, int productId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<int> ModifyProduct(ProductModel product, string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Product> RetrieveProduct(ProductModel product, string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<ProductModel>?> RetrieveMyProducts(string userId)
+        {
+            var result = _context.Products?.Where(x => x.UserId == userId);
+            return _mapper.Map<IEnumerable<Product>,IEnumerable <ProductModel >>(result);
+        }
+
+        public async Task<IEnumerable<Product>> RetrieveAllProducts(ProductModel product)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
