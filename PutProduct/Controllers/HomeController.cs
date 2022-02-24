@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PutProduct.Infrastructure.Extensions;
 
 namespace PutProduct.Controllers
 {
@@ -10,8 +11,9 @@ namespace PutProduct.Controllers
         [Authorize]
         [HttpGet]
         public IActionResult Get() {
+            var userId = User.GetUserId();
 
-            return Ok("Work");
+            return Ok("Work:  "+userId);
 
         }
     }

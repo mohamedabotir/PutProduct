@@ -1,4 +1,7 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using PutProduct.abstracts.Repository;
+using PutProduct.Cores.Repository;
 using PutProduct.Infrastructure.Extensions;
 using PutProduct.Data;
 using PutProduct.Services.jwt;
@@ -10,14 +13,15 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
 builder.Services
     .AddIdentity()
     .JwtAuthentication(builder.Configuration)
     .AddSwagger();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
  
 builder.Services.AddTransient<ApplicationDbContext>();
 builder.Services.AddTransient<IJwtService, JwtService>();
+builder.Services.AddTransient<IProductRepository,ProductRepository>();
 builder.Services.AddCors();
 
 
