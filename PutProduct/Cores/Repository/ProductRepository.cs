@@ -61,5 +61,11 @@ namespace PutProduct.Cores.Repository
             var result = _context.Products.AsEnumerable();
             return _mapper.Map<IEnumerable<Product>,IEnumerable<ProductModel>>(result);
         }
+
+        public async Task<ProductModel>? RetrieveSpecificProduct(int id)
+        {
+            var product = _context.Products.SingleOrDefault(x => x.Id == id);
+            return _mapper.Map<Product,ProductModel>(product);
+        }
     }
 }

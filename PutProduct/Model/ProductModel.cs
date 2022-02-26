@@ -21,7 +21,7 @@ namespace PutProduct.Model
         public int CategoryId { get; set; }
          
         public string ImageUrl { get; set; }
-        [Required]
+        
         public string? UserId { get; set; }
 
         public ProductModel(string description, int quantity, string name, decimal price, int categoryId, string imageUrl,string? userId)
