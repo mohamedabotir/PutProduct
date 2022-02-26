@@ -8,5 +8,10 @@ namespace PutProduct.Infrastructure.Extensions
             user.Claims.
             FirstOrDefault(c => c.Type == "UserId")?
             .Value;
+
+        public static string? GetUserName(this ClaimsPrincipal user) =>
+            user.Claims.
+            FirstOrDefault(c => c.Type == "Name")?
+            .Value;
     }
 }

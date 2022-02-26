@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PutProduct.abstracts.Repository;
 using PutProduct.Data;
 using PutProduct.Model;
@@ -64,8 +65,10 @@ namespace PutProduct.Cores.Repository
 
         public async Task<ProductModel>? RetrieveSpecificProduct(int id)
         {
-            var product = _context.Products.SingleOrDefault(x => x.Id == id);
-            return _mapper.Map<Product,ProductModel>(product);
+            var product = _context.Products.Include(x=>x.User).SingleOrDefault(x=>x.Id==id);
+            var result = _mapper.Map<Product, ProductModel>(product);
+            result.UserName = product.User.UserName;
+            return result;
         }
     }
 }

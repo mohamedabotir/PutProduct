@@ -85,6 +85,7 @@ namespace PutProduct.Controllers
         public async Task<IActionResult> Product(int id) {
             var userId = User.GetUserId();
             var result = await _productRepository.RetrieveSpecificProduct(id);
+            
             if (result.Id == 0)
                 return NotFound("The Product is not Available");
             return Ok(result);

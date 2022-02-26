@@ -5,6 +5,7 @@ using PutProduct.Cores.Repository;
 using PutProduct.Infrastructure.Extensions;
 using PutProduct.Data;
 using PutProduct.Services.jwt;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,10 +26,11 @@ builder.Services.AddTransient<IProductRepository,ProductRepository>();
 builder.Services.AddCors();
 
 
- 
 
 
-builder.Services.AddControllers();
+
+
+builder.Services.AddControllers().AddNewtonsoftJson(c=>c.SerializerSettings.ReferenceLoopHandling=ReferenceLoopHandling.Ignore);
 
 var app = builder.Build();
 
