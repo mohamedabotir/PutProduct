@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PutProduct.Data;
+using PutProduct.Infrastructure.Extensions;
 using PutProduct.Model;
 using PutProduct.Services;
 using PutProduct.Services.jwt;
@@ -62,9 +63,18 @@ namespace PutProduct.Controllers
 
          [HttpGet]
          [Authorize]
-        public IActionResult Get() {
+        public async Task<IActionResult> Get() {
             
             return Content("hello");
+        }
+        [HttpGet]
+        [Authorize]
+        [Route(nameof(GetUserId))]
+        public IActionResult GetUserId()
+        {
+            var user= User.GetUserId();
+
+            return Ok(user);
         }
     }
 }

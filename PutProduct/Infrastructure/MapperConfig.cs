@@ -8,7 +8,11 @@ namespace PutProduct.Infrastructure
     {
         public MapperConfig()
         {
-            CreateMap<ProductModel, Product>().ReverseMap();
+            CreateMap<Product, ProductModel>()
+                .ForMember(x=>x.UserName,
+                    o=>o
+                        .MapFrom(x=>x.User.UserName)).
+                ReverseMap();
         }
     }
 }

@@ -67,12 +67,17 @@ namespace PutProduct.Controllers
         }
 
 
-        [Route(nameof(RemoveProduct))]
+        [Route(nameof(RemoveProduct)+"/{productId}")]
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> RemoveProduct([FromBody]int productId) {
+        public async Task<IActionResult> RemoveProduct(int productId) {
             var userId = User.GetUserId();
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+
             var result = await _productRepository.DeleteProduct(userId, productId);
             if (result == 0)
                 return NotFound("The Product is not Available");
