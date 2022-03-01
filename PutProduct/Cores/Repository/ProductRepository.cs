@@ -38,10 +38,17 @@ namespace PutProduct.Cores.Repository
 
         public async Task<int> ModifyProduct(ProductModel product, string? userId)
         {
+            var models = _context.Products.FirstOrDefault(x => x.Id == product.Id);
+            models.CategoryId = product.CategoryId;
+            models.Description = product.Description;
+            models.ImageUrl = product.ImageUrl;
+            models.Name = product.Name;
+            models.Price = product.Price;
+            models.Quantity= product.Quantity;
             var model = _mapper.Map<ProductModel,Product>(product);
-            model.UserId = userId;
-          var modify = _context.Products?.Update(model);
-          await _context.SaveChangesAsync();
+             
+            var modify = _context.Products?.Update(models);
+              _context.SaveChanges();
           return modify.Entity.Id;
         }
 

@@ -51,6 +51,7 @@ namespace PutProduct.Controllers
         public async Task<IActionResult> Update([FromBody]ProductModel product) {
 
             var userId = User.GetUserId();
+            
             var result =await _productRepository.ModifyProduct(product,userId);
             if (result == 0)
                 return BadRequest();
