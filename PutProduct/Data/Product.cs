@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using PutProduct.abstracts.Models;
 
 namespace PutProduct.Data
 {
-    public class Product
+    public class Product :IDeleteEntity
     {
        
 
@@ -38,6 +39,14 @@ namespace PutProduct.Data
         {
             
         }
+        [Required]
+        public string CreatedBy { get; set; }
+        [Required]
+        public DateTime CreatedOn { get; set; }
+        public string? ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public string? DeletedBy { get; set; }
+        public DateTime? DeletedOn { get; set; }
     }
     public enum ProductType {
         Electronic,Book,Computer,GraphicCard,Other

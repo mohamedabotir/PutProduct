@@ -6,6 +6,7 @@ using PutProduct.Infrastructure.Extensions;
 using PutProduct.Data;
 using PutProduct.Services.jwt;
 using Newtonsoft.Json;
+using PutProduct.abstracts.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,10 +20,10 @@ builder.Services
     .JwtAuthentication(builder.Configuration)
     .AddSwagger();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
- 
 builder.Services.AddTransient<ApplicationDbContext>();
 builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddTransient<IProductRepository,ProductRepository>();
+builder.Services.AddTransient<IIdentityService, IdentityExtensions>();
 builder.Services.AddCors();
 
 

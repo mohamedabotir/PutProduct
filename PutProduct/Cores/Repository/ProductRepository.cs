@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PutProduct.abstracts.Repository;
 using PutProduct.Data;
@@ -39,6 +40,11 @@ namespace PutProduct.Cores.Repository
         public async Task<int> ModifyProduct(ProductModel product, string? userId)
         {
             var models = _context.Products.FirstOrDefault(x => x.Id == product.Id);
+            if (models.UserId != userId)
+            {
+                return 0;
+            }
+
             models.CategoryId = product.CategoryId;
             models.Description = product.Description;
             models.ImageUrl = product.ImageUrl;

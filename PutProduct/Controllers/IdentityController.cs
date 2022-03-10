@@ -1,10 +1,11 @@
 ﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PutProduct.abstracts.Services;
 using PutProduct.Data;
 using PutProduct.Infrastructure.Extensions;
 using PutProduct.Model;
-using PutProduct.Services;
 using PutProduct.Services.jwt;
 
 namespace PutProduct.Controllers
@@ -17,11 +18,14 @@ namespace PutProduct.Controllers
         private readonly UserManager<User> _manager;
      
         private readonly IJwtService _jwt;
+        private readonly IIdentityService _user;
+
          
-        public IdentityController(UserManager<User> manager,IJwtService jwt)
+        public IdentityController(UserManager<User> manager,IJwtService jwt,IIdentityService user)
         {
             this._manager = manager; 
             this._jwt= jwt;
+            _user= user;
            
         }
         [Route(nameof(Register))]
@@ -72,7 +76,7 @@ namespace PutProduct.Controllers
         [Route(nameof(GetUserId))]
         public IActionResult GetUserId()
         {
-            var user= User.GetUserId();
+            var user= _user.GetUserId();
 
             return Ok(user);
         }

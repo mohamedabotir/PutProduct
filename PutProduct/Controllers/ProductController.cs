@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PutProduct.abstracts.Repository;
-using PutProduct.Infrastructure.Extensions;
+using PutProduct.abstracts.Services;
 using PutProduct.Model;
 
 namespace PutProduct.Controllers
@@ -11,11 +11,12 @@ namespace PutProduct.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
+        private readonly IIdentityService _user;
 
-
-        public ProductController(IProductRepository productRepository)
+        public ProductController(IProductRepository productRepository,IIdentityService user)
         {
             _productRepository = productRepository;
+            _user = user;
         }
 
 
@@ -25,8 +26,9 @@ namespace PutProduct.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Create([FromBody]ProductModel product) {
 
-            var userId = User.GetUserId();
+            var userId = _user.GetUserId();
             product.UserId = userId;
+            product.UserName = _user.GetUserName();
             var result = await _productRepository.CreateProduct(product, userId);
             return Ok(result);
         } 
@@ -36,9 +38,10 @@ namespace PutProduct.Controllers
         [Route(nameof(MyProducts))]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> MyProducts() {
 
-            var userId = User.GetUserId();
+            var userId = _user.GetUserId();
             var result =await _productRepository.RetrieveMyProducts(userId);
             return Ok(result);
         }
@@ -50,7 +53,7 @@ namespace PutProduct.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Update([FromBody]ProductModel product) {
 
-            var userId = User.GetUserId();
+            var userId = _user.GetUserId();
             
             var result =await _productRepository.ModifyProduct(product,userId);
             if (result == 0)
@@ -73,7 +76,7 @@ namespace PutProduct.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> RemoveProduct(int productId) {
-            var userId = User.GetUserId();
+            var userId = _user.GetUserId();
             if (userId == null)
             {
                 return Unauthorized();
@@ -89,7 +92,7 @@ namespace PutProduct.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Product(int id) {
-            var userId = User.GetUserId();
+            var userId = _user.GetUserId();
             var result = await _productRepository.RetrieveSpecificProduct(id);
             
             if (result.Id == 0)
