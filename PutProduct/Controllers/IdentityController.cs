@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PutProduct.abstracts.Services;
 using PutProduct.Data;
+using PutProduct.Data.Migrations;
 using PutProduct.Infrastructure.Extensions;
 using PutProduct.Model;
 using PutProduct.Services.jwt;
@@ -37,6 +38,11 @@ namespace PutProduct.Controllers
                 Email = user.Email,
             UserName = user.UserName,
             PhoneNumber = user.Phone,
+            profile = new Profile()
+            {
+                EmailAddress = user.Email,
+                Name = user.UserName
+            }
            };
             var result = await _manager.CreateAsync(member, user.Password);
             if (result.Succeeded)

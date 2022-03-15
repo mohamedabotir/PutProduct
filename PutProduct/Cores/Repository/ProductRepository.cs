@@ -72,7 +72,7 @@ namespace PutProduct.Cores.Repository
         public async Task<IEnumerable<ProductModel>?> RetrieveAllProducts()
         {
 
-            var result = _context.Products.Include(x=>x.User).AsEnumerable();
+            var result = _context.Products.Include(x=>x.User).Where(e => e.DeletedBy == null).AsEnumerable();
             return _mapper.Map<IEnumerable<Product>,IEnumerable<ProductModel>>(result);
         }
 

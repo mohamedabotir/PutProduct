@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PutProduct.Data;
 using PutProduct.Model;
+using Profile = AutoMapper.Profile;
 
 namespace PutProduct.Infrastructure
 {

@@ -75,6 +75,7 @@ namespace PutProduct.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize]
         public async Task<IActionResult> RemoveProduct(int productId) {
             var userId = _user.GetUserId();
             if (userId == null)

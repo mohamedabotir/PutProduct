@@ -37,6 +37,7 @@ namespace PutProduct.Data
             builder.Entity<Product>().HasOne(x => x.User).
                 WithMany(x => x.Products).
                 HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<User>().OwnsOne(e => e.profile);
             base.OnModelCreating(builder);
         }
 

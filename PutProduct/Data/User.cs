@@ -6,8 +6,8 @@ namespace PutProduct.Data
 {
     public class User : IdentityUser
     {
-        
- 
+
+        public Profile profile { get; set; }
         
         public ICollection<Product> Products { get; set; }
         public User()
