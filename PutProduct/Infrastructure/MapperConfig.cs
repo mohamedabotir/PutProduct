@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using PutProduct.Data;
+﻿using PutProduct.Data;
 using PutProduct.Model;
 using Profile = AutoMapper.Profile;
 
@@ -9,10 +8,12 @@ namespace PutProduct.Infrastructure
     {
         public MapperConfig()
         {
+            CreateMap<PutProduct.Data.Profile, ProfileModel>().ReverseMap();
+
             CreateMap<Product, ProductModel>()
                 .ForMember(x=>x.UserName,
                     o=>o
-                        .MapFrom(x=>x.User.UserName)).
+                        .MapFrom(x=>x.User!.UserName)).
                 ReverseMap();
         }
     }

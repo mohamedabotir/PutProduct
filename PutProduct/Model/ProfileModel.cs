@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PutProduct.Data
+namespace PutProduct.Model
 {
-    public class Profile
+    public class ProfileModel
     {
         [Required]
         public string Name { get; set; }
