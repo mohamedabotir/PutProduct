@@ -1,7 +1,11 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using PutProduct.Infrastructure.Extensions;
 using PutProduct.Data;
 using PutProduct.Services.jwt;
+using AutoMapper;
+using PutProduct.Cores.Repositories;
+using PutProduct.Units.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +18,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services
     .AddIdentity()
     .JwtAuthentication(builder.Configuration)
-    .AddSwagger();
- 
+    .AddSwagger()
+    ;
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 builder.Services.AddTransient<ApplicationDbContext>();
 builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddCors();

@@ -33,6 +33,11 @@ namespace PutProduct.Data
             UserId = userId;
             this.ImageUrl = imageUrl;
         }
+
+        public Product()
+        {
+            
+        }
     }
     public enum ProductType {
         Electronic,Book,Computer,GraphicCard,Other

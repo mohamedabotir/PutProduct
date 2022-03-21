@@ -125,13 +125,9 @@ C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\PutPro
 C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\PutProduct.csproj.CoreCompileInputs.cache
 C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\PutProduct.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\PutProduct.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\PutProduct.RazorAssemblyInfo.cache
-C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\PutProduct.RazorAssemblyInfo.cs
 C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\staticwebassets.development.json
-C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\scopedcss\bundle\PutProduct.styles.css
-C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\scopedcss\projectbundle\PutProduct.bundle.scp.css
 C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\PutProduct.csproj.CopyComplete
 C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\PutProduct.dll
 C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\obj\Debug\net6.0\ref\PutProduct.dll
@@ -142,3 +138,5 @@ C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\bin\Debug\net6.0\Micros
 C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\H\source\repos\PutProduct\PutProduct\PutProduct\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

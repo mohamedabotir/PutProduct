@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace PutProduct.Model
 {
@@ -20,6 +21,9 @@ namespace PutProduct.Model
         public int CategoryId { get; set; }
          
         public string ImageUrl { get; set; }
+        [JsonIgnore]
+        public string UserId { get; set; }
+
         public ProductModel(string description, int quantity, string name, decimal price, int categoryId, string imageUrl)
         {
             Description = description;
@@ -28,6 +32,11 @@ namespace PutProduct.Model
             Price = price;
             this.CategoryId = categoryId;
             this.ImageUrl = imageUrl;
+        }
+
+        public ProductModel()
+        {
+                
         }
 
 

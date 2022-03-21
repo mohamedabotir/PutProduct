@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../Services/auth.service';
@@ -11,14 +12,21 @@ export class LoginComponent implements OnInit {
     'Email':['',Validators.required],
     'Password':['',Validators.required]
   });;
-  constructor(private fb:FormBuilder,private Auth:AuthService) {
+  constructor(private fb:FormBuilder,private Auth:AuthService,private redirect:Router) {
   }
 
   ngOnInit(): void {
   }
 onsubmit():void{
 this.Auth.Login(this.form.value).subscribe(data=>{
-  this.Auth.saveToken(data)
+  this.Auth.saveToken(data);
+  console.log(this.Auth.redirectUrl);
+  if(this.Auth.redirectUrl){
+
+    this.redirect.navigate([this.Auth.redirectUrl]);
+    console.log(this.Auth.redirectUrl);
+  }
+
 });
 console.log(this.form)
 }

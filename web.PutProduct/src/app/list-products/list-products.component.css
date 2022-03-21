@@ -1,0 +1,10 @@
+.product-description {
+  height: 1.5em;
+}
+.product {
+  height: 400px;
+  margin-bottom: 5em;
+}
+.product > img {
+  height: 100px;
+}

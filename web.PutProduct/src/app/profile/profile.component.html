@@ -1,0 +1,43 @@
+<div class="container rounded bg-white mt-5 mb-5">
+  <div class="row">
+    <form [formGroup]="form" (ngSubmit)="onUpdate()">
+      <div class="col-lg-12 border-center" *ngIf="image==null">
+        <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></div>
+    </div>
+      <div class="col-lg-12 border-center" *ngIf="image!=null">
+          <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" [src]="image" ></div>
+      </div>
+      <div class="col-lg-12 border-center">
+          <div class="p-3 py-5">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h4 class="text-right">Profile</h4>
+              </div>
+              <div class="row mt-2">
+                <div *ngIf="form.controls['name'].errors?.['required'] && form.controls['name'].touched" class="alert alert-danger">
+                  Name is Required
+                  </div>
+                  <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value="" formControlName="name"></div>
+              </div>
+              <div class="row mt-3">
+
+                  <div class="col-md-12"><label class="labels">Location</label><input type="text" class="form-control" placeholder="your Location" value="" formControlName="location"></div>
+                   <div class="col-md-12">
+                    <div *ngIf="form.controls['emailAddress'].errors?.['required'] && form.controls['emailAddress'].touched" class="alert alert-danger">
+                      Email is Required
+                      </div>
+                    <label class="labels">Email</label><input type="text" class="form-control" placeholder="Your Email" value="" formControlName="emailAddress"></div>
+                   <div class="col-md-12"><label class="labels">ImageUrl</label><input type="text" class="form-control" placeholder="your ImageUrl" value="" formControlName="imageUrl"></div>
+                   <div class="col-md-12"><label class="labels">Website</label><input type="text" class="form-control" placeholder="your Website" value="" formControlName="website"></div>
+                   <div class="col-md-12"><label class="labels">Bio</label><textarea  class="form-control" rows="3" placeholder="Biography about 150 Letters" value="" formControlName="bio"></textarea></div>
+
+
+                  </div>
+
+              <div class="mt-5 text-center"><input class="btn btn-primary profile-button" type="submit" value="Save Profile"/></div>
+          </div>
+      </div>
+</form>
+  </div>
+</div>
+
+

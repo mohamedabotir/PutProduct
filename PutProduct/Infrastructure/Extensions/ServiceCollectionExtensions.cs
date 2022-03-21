@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using PutProduct.Data;
@@ -74,6 +76,8 @@ namespace PutProduct.Infrastructure.Extensions
             });
             return service;
         }
+
+       
     }
     
 }
