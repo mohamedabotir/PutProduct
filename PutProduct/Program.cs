@@ -1,11 +1,18 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using PutProduct.abstracts.Repository;
+using PutProduct.Cores.Repository;
 using PutProduct.Infrastructure.Extensions;
 using PutProduct.Data;
 using PutProduct.Services.jwt;
+<<<<<<< HEAD
 using AutoMapper;
 using PutProduct.Cores.Repositories;
 using PutProduct.Units.Repositories;
+=======
+using Newtonsoft.Json;
+using PutProduct.abstracts.Services;
+>>>>>>> 379e267fae2a188d12179926643ecb260907ea7c
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,23 +21,30 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
 builder.Services
     .AddIdentity()
     .JwtAuthentication(builder.Configuration)
+<<<<<<< HEAD
     .AddSwagger()
     ;
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
+=======
+    .AddSwagger();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+>>>>>>> 379e267fae2a188d12179926643ecb260907ea7c
 builder.Services.AddTransient<ApplicationDbContext>();
 builder.Services.AddTransient<IJwtService, JwtService>();
+builder.Services.AddTransient<IProductRepository,ProductRepository>();
+builder.Services.AddTransient<IIdentityService, IdentityExtensions>();
 builder.Services.AddCors();
 
 
- 
 
 
-builder.Services.AddControllers();
+
+
+builder.Services.AddControllers().AddNewtonsoftJson(c=>c.SerializerSettings.ReferenceLoopHandling=ReferenceLoopHandling.Ignore);
 
 var app = builder.Build();
 

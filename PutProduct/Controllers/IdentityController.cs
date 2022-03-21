@@ -1,9 +1,12 @@
 ﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PutProduct.abstracts.Services;
 using PutProduct.Data;
+using PutProduct.Data.Migrations;
+using PutProduct.Infrastructure.Extensions;
 using PutProduct.Model;
-using PutProduct.Services;
 using PutProduct.Services.jwt;
 
 namespace PutProduct.Controllers
@@ -16,11 +19,14 @@ namespace PutProduct.Controllers
         private readonly UserManager<User> _manager;
      
         private readonly IJwtService _jwt;
+        private readonly IIdentityService _user;
+
          
-        public IdentityController(UserManager<User> manager,IJwtService jwt)
+        public IdentityController(UserManager<User> manager,IJwtService jwt,IIdentityService user)
         {
             this._manager = manager; 
             this._jwt= jwt;
+            _user= user;
            
         }
         [Route(nameof(Register))]
@@ -32,6 +38,11 @@ namespace PutProduct.Controllers
                 Email = user.Email,
             UserName = user.UserName,
             PhoneNumber = user.Phone,
+            profile = new Profile()
+            {
+                EmailAddress = user.Email,
+                Name = user.UserName
+            }
            };
             var result = await _manager.CreateAsync(member, user.Password);
             if (result.Succeeded)
@@ -62,9 +73,18 @@ namespace PutProduct.Controllers
 
          [HttpGet]
          [Authorize]
-        public IActionResult Get() {
+        public async Task<IActionResult> Get() {
             
             return Content("hello");
+        }
+        [HttpGet]
+        [Authorize]
+        [Route(nameof(GetUserId))]
+        public IActionResult GetUserId()
+        {
+            var user= _user.GetUserId();
+
+            return Ok(user);
         }
     }
 }

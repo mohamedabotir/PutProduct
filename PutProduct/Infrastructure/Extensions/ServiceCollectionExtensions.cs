@@ -29,6 +29,7 @@ namespace PutProduct.Infrastructure.Extensions
         o.SaveToken = true;
         o.TokenValidationParameters = new TokenValidationParameters
         {
+            ValidateIssuerSigningKey = true,
             ValidateIssuer = true,
             ValidateAudience = true,
 

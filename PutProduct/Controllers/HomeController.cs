@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PutProduct.abstracts.Services;
+
 
 namespace PutProduct.Controllers
 {
@@ -7,11 +9,18 @@ namespace PutProduct.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
+        private readonly IIdentityService _user;
+
+        public HomeController(IIdentityService user)
+        {
+            _user = user;
+        }
         [Authorize]
         [HttpGet]
         public IActionResult Get() {
+            var userId = _user.GetUserId();
 
-            return Ok("Work");
+            return Ok("Work:  "+userId);
 
         }
     }
