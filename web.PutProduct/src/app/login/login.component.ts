@@ -17,9 +17,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   this.cartService.returnProducts().subscribe(data=>{
-     console.log(data);
-   });
   }
 onsubmit():void{
 this.Auth.Login(this.form.value).subscribe(data=>{
