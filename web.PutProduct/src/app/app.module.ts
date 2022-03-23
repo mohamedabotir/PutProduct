@@ -8,12 +8,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './Services/auth.service';
-import { HttpClientModule, HTTP_INTERCEPTORS, HttpInterceptor } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { ProductComponent } from './product/product.component';
 import { InterceptorService } from './Services/interceptor.service';
 import { ListProductsComponent } from './list-products/list-products.component';
-
+import { RouterModule } from '@angular/router';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -21,7 +21,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { CartService } from './Services/cart-service.service';
 import { CartComponent } from './cart/cart.component';
 @NgModule({
-  declarations: [
+   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
@@ -30,6 +30,7 @@ import { CartComponent } from './cart/cart.component';
     ProductEditComponent,
     ProfileComponent,
     CartComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -37,9 +38,10 @@ import { CartComponent } from './cart/cart.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    RouterModule
   ],
-  providers: [AuthService,ProductService,{
+  providers: [CartService,AuthService,ProductService,{
     provide:HTTP_INTERCEPTORS,
     useClass:InterceptorService,
     multi:true
@@ -48,7 +50,7 @@ import { CartComponent } from './cart/cart.component';
     useClass:ErrorInterceptorService,
     multi:true
   },
-  CartService
+
 
 
 ],

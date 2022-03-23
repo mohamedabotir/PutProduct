@@ -1,3 +1,4 @@
+import { CartService } from './../Services/cart-service.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -12,10 +13,13 @@ export class LoginComponent implements OnInit {
     'Email':['',Validators.required],
     'Password':['',Validators.required]
   });;
-  constructor(private fb:FormBuilder,private Auth:AuthService,private redirect:Router) {
+  constructor(private fb:FormBuilder,private Auth:AuthService,private redirect:Router,private cartService:CartService) {
   }
 
   ngOnInit(): void {
+   this.cartService.returnProducts().subscribe(data=>{
+     console.log(data);
+   });
   }
 onsubmit():void{
 this.Auth.Login(this.form.value).subscribe(data=>{

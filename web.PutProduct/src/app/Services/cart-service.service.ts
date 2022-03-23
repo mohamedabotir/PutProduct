@@ -1,51 +1,53 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { Injectable, Output,EventEmitter } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from 'src/Shared/Products';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CartService {
-public static Products:any;
-private temp?:Product[];
-  constructor(private http:HttpClient) {
-
-   }
+  data:Product[]=[];
+  constructor(private toast:ToastrService) {
+  }
+private Cart:BehaviorSubject<Product>=new BehaviorSubject<Product>({id:0,description:'',name:'',price:0,categoryId:0,imageUrl:'',userId:'',userName:'',qty:0,quantity:0});
+cart:Observable<Product[]>=new Observable<Product[]>();
+datas = this.Cart.asObservable();
 returnProducts(){
-  console.log(CartService.Products);
-  return CartService.Products;
-}
-  findProduct(id:any){
-    let product;
-    if(!CartService.Products)
-    return null;
-   for (let index = 0; index < CartService.length; index++) {
-   if(CartService.Products[index].id == id)
-   product= CartService.Products[index];
-   }
 
-   return product;
-  }
-  addProduct(product:Product){
-    let result = this.findProduct(product.id) as unknown as Product;
-   if(result){
-     result.qty =result.qty+1;
-     console.log(result.qty);
-   this.modifyProduct(result.qty,result.id)
-  }
-   else{
-     product.qty=1;
-     CartService.Products.push(product);
+  return this.Cart;
+}
+
+  AddToCart(product:Product){
+   let isFound = false
+   if(product.quantity<1){
+    this.toast.error("OutOfStock");
    }
-   console.log(CartService.Products);
-  }
-  modifyProduct(qty:any,id:any){
-    CartService.Products.forEach((element: { id: any; qty: any; }) => {
-      if(element.id == id){
-        element.qty = qty;
-        return;
+    if(localStorage.getItem("products")){
+      this.data = JSON.parse(localStorage.getItem("products")!);
+      this.data.forEach(data=>{
+
+        if(data.id == product.id){
+           isFound=true;
+          if(data.quantity < data.qty+1){
+
+            this.toast.error("Exceed Limit");
+            return;
+          }
+          data.qty = data.qty+1;
+          localStorage.setItem("products",JSON.stringify(this.data));
+        }
+      })
+      if(!isFound){
+        product.qty=1;
+        this.data.push(product);
+        localStorage.setItem("products",JSON.stringify(this.data));
       }
-    });
+    }else{
+      product.qty=1;
+      this.data.push(product);
+      localStorage.setItem("products",JSON.stringify(this.data));
+    }
+
   }
+
+
 }

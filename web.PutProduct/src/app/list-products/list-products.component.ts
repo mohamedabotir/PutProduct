@@ -11,16 +11,18 @@ import { Product } from 'src/Shared/Products';
   styleUrls: ['./list-products.component.css']
 })
 export class ListProductsComponent implements OnInit {
+public static data:Product[]=[];
  Products?:Array<Product>;
  Temp?:Product;
  userId?:any;
-  constructor(private Product:ProductService,private auth:AuthService,private cart:CartService,private tos:ToastrService) { }
+  constructor(private cartService:CartService,private Product:ProductService,private auth:AuthService,private tos:ToastrService) { }
 
   ngOnInit(): void {
 this.getProducts();
 this.auth.getUserId().subscribe(data=>{
 this.userId = data;
 });
+
   }
   getProducts():void{
     this.Product.getProducts().subscribe(data=>{
@@ -38,7 +40,9 @@ this.Product.deleteProduct(id).subscribe(data=>{
     return Product.id;
   }
   addToCart(product:Product){
-   this.cart.addProduct(product);
+
+    ListProductsComponent.data.push(product);
+   this.cartService.AddToCart(product);
   }
 
 }
