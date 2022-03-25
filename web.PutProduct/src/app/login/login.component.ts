@@ -14,13 +14,22 @@ export class LoginComponent implements OnInit {
     'Password':['',Validators.required]
   });;
   constructor(private fb:FormBuilder,private Auth:AuthService,private redirect:Router,private cartService:CartService) {
+
   }
 
   ngOnInit(): void {
+    let userId;
+    this.Auth.getUserId().subscribe(data=>{
+    userId = data;
+    });
+    console.log(userId);
+  if(userId)
+  this.redirect.navigate(["/profile/"+userId]);
   }
 onsubmit():void{
 this.Auth.Login(this.form.value).subscribe(data=>{
   this.Auth.saveToken(data);
+  this.redirect.navigate([""]);
   console.log(this.Auth.redirectUrl);
   if(this.Auth.redirectUrl){
 

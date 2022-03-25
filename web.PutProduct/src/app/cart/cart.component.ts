@@ -1,6 +1,7 @@
+import { ToastrService } from 'ngx-toastr';
 
 import { CartService } from './../Services/cart-service.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Product } from 'src/Shared/Products';
 
 @Component({
@@ -8,8 +9,12 @@ import { Product } from 'src/Shared/Products';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit {
-  constructor(private cartService:CartService) { }
+export class CartComponent implements OnInit,OnChanges {
+  @Input() qty!:Number;
+  constructor(private cartService:CartService,private toast:ToastrService) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.products,changes+"saddsadsadsadasd");
+  }
   products!:Product[];
 
   ngOnInit(): void {
@@ -27,5 +32,21 @@ export class CartComponent implements OnInit {
     }
 
   }
+  pay(){
+  this.cartService.Pay(this.products,"fdsfsdfsd");
+}
+increment(index:number){
+  if(this.products[index].qty +1 >this.products[index].quantity)
+  {this.toast.info(`maximum quantity from ${this.products[index].name.substring(0,28)} is ${this.products[index].quantity}`)}
+  else
+  this.products[index].qty += 1;
+}
+decrement(index:number){
+  if(this.products[index].qty -1 ==0){
+    return;
+  }
+  else
+  this.products[index].qty -= 1;
+}
 
 }

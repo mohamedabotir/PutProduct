@@ -2,12 +2,15 @@ import { ToastrService } from 'ngx-toastr';
 import { Injectable, Output,EventEmitter } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from 'src/Shared/Products';
+import {Order} from 'src/Shared/Order';
 let Cart:BehaviorSubject<Product>=new BehaviorSubject<Product>({id:0,description:'',name:'',price:0,categoryId:0,imageUrl:'',userId:'',userName:'',qty:0,quantity:0});
 
 @Injectable()
 export class  CartService {
   data:Product[]=[];
+  Orders: Order;
   constructor(private toast:ToastrService) {
+    this.Orders={products:[],totalPrice:0,discountCode:""};
   }
 cart:Observable<Product[]>=new Observable<Product[]>();
 returnProducts(){
@@ -57,6 +60,15 @@ localStorage.setItem("products",JSON.stringify(this.data));
     }
 
   }
-
-
+  Pay(products:Product[],discountCode:string){
+    let TotalPrice = 0;
+  products.forEach(data=>{
+    TotalPrice+=Number(data.price) * data.qty;
+  });
+  console.log(TotalPrice,"  ",products);
+  this.Orders.discountCode = discountCode;
+  this.Orders.products = products;
+  this.Orders.totalPrice=TotalPrice;
+  console.log(this.Orders);
+  }
 }
