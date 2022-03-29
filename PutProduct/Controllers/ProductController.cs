@@ -1,18 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-<<<<<<< HEAD
 using Newtonsoft.Json;
-=======
-<<<<<<< HEAD
-using PutProduct.Cores.Repositories;
-using PutProduct.Data;
-using PutProduct.Infrastructure.Extensions;
-=======
->>>>>>> d1b3b9f2a824929312ae40626be27db3f1e95974
 using PutProduct.abstracts.Repository;
 using PutProduct.abstracts.Services;
->>>>>>> 379e267fae2a188d12179926643ecb260907ea7c
 using PutProduct.Model;
 
 namespace PutProduct.Controllers
@@ -21,15 +11,6 @@ namespace PutProduct.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-<<<<<<< HEAD
-       
-        private readonly  ApplicationDbContext _context;
-        public ProductController(ApplicationDbContext context)
-        {
-           
-            _context = context; 
-           
-=======
         private readonly IProductRepository _productRepository;
         private readonly IIdentityService _user;
 
@@ -37,7 +18,6 @@ namespace PutProduct.Controllers
         {
             _productRepository = productRepository;
             _user = user;
->>>>>>> 379e267fae2a188d12179926643ecb260907ea7c
         }
 
 
@@ -45,23 +25,6 @@ namespace PutProduct.Controllers
         [Route(nameof(Create))]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-<<<<<<< HEAD
-        public async Task<IActionResult> Create([FromBody]ProductModel product)
-        {
-            var userId = User.GetUserId();
-            var prod = new Product(
-                description: product.Description,
-                quantity: product.Quantity,
-                name: product.Name,
-                price: product.Price,
-                categoryId: product.CategoryId,
-                userId: userId,
-                imageUrl: product.ImageUrl
-            );
-            _context.Products?.Add(prod);
-            await _context.SaveChangesAsync();
-            return Ok(prod.Id);
-=======
         public async Task<IActionResult> Create([FromBody]ProductModel product) {
 
             var userId = _user.GetUserId();
@@ -137,7 +100,6 @@ namespace PutProduct.Controllers
             if (result.Id == 0)
                 return NotFound("The Product is not Available");
             return Ok(result);
->>>>>>> 379e267fae2a188d12179926643ecb260907ea7c
         }
         [Route(nameof(Cart))]
         [HttpPost]

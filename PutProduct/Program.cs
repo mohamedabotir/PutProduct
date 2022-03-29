@@ -5,14 +5,8 @@ using PutProduct.Cores.Repository;
 using PutProduct.Infrastructure.Extensions;
 using PutProduct.Data;
 using PutProduct.Services.jwt;
-<<<<<<< HEAD
-using AutoMapper;
-using PutProduct.Cores.Repositories;
-using PutProduct.Units.Repositories;
-=======
 using Newtonsoft.Json;
 using PutProduct.abstracts.Services;
->>>>>>> 379e267fae2a188d12179926643ecb260907ea7c
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,15 +21,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services
     .AddIdentity()
     .JwtAuthentication(builder.Configuration)
-<<<<<<< HEAD
-    .AddSwagger()
-    ;
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
-=======
     .AddSwagger();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
->>>>>>> 379e267fae2a188d12179926643ecb260907ea7c
 builder.Services.AddTransient<ApplicationDbContext>();
 builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddTransient<IProductRepository,ProductRepository>();

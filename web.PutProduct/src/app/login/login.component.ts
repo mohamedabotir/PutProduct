@@ -1,5 +1,3 @@
-import { CartService } from './../Services/cart-service.service';
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../Services/auth.service';
@@ -13,30 +11,14 @@ export class LoginComponent implements OnInit {
     'Email':['',Validators.required],
     'Password':['',Validators.required]
   });;
-  constructor(private fb:FormBuilder,private Auth:AuthService,private redirect:Router,private cartService:CartService) {
-
+  constructor(private fb:FormBuilder,private Auth:AuthService) {
   }
 
   ngOnInit(): void {
-    let userId;
-    this.Auth.getUserId().subscribe(data=>{
-    userId = data;
-    });
-    console.log(userId);
-  if(userId)
-  this.redirect.navigate(["/profile/"+userId]);
   }
 onsubmit():void{
 this.Auth.Login(this.form.value).subscribe(data=>{
-  this.Auth.saveToken(data);
-  this.redirect.navigate([""]);
-  console.log(this.Auth.redirectUrl);
-  if(this.Auth.redirectUrl){
-
-    this.redirect.navigate([this.Auth.redirectUrl]);
-    console.log(this.Auth.redirectUrl);
-  }
-
+  this.Auth.saveToken(data)
 });
 console.log(this.form)
 }

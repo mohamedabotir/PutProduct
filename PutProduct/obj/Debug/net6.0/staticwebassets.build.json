@@ -1,10 +1,6 @@
 {
   "Version": 1,
-<<<<<<< HEAD
-  "Hash": "GNbg0IT+Z9TP0cL14Djl/V2lhseLQ250yPMomROAM7I=",
-=======
   "Hash": "nRk3xq36MLJyYPI5BvhdoZtylM89TY+mos3nDyiskkI=",
->>>>>>> 379e267fae2a188d12179926643ecb260907ea7c
   "Source": "PutProduct",
   "BasePath": "_content/PutProduct",
   "Mode": "Default",
@@ -1072,16 +1068,6 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-<<<<<<< HEAD
-      "OriginalItemSpec": "C:\\Users\\H\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\6.0.1\\staticwebassets\\V5\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
-    },
-    {
-      "Identity": "C:\\Users\\H\\source\\repos\\PutProduct\\PutProduct\\PutProduct\\wwwroot\\css\\site.css",
-      "SourceId": "PutProduct",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\H\\source\\repos\\PutProduct\\PutProduct\\PutProduct\\wwwroot\\",
-      "BasePath": "_content/PutProduct",
-=======
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
@@ -1090,7 +1076,6 @@
       "SourceType": "Package",
       "ContentRoot": "C:\\Users\\H\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\6.0.3\\staticwebassets\\V5\\",
       "BasePath": "Identity",
->>>>>>> 379e267fae2a188d12179926643ecb260907ea7c
       "RelativePath": "css/site.css",
       "AssetKind": "All",
       "AssetMode": "All",

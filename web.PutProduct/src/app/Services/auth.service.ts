@@ -1,23 +1,18 @@
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { Router } from '@angular/router';
-import { Profile } from 'src/Shared/Profile';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   apiUr =environment.url+'identity/';
-  profile = environment.url+'profile/';
-  userId?:String;
-  public redirectUrl?: String;
-  constructor(private auth:HttpClient,private route:Router) {
+  constructor(private auth:HttpClient) {
 
   }
   Login(data:any):Observable<any>{
-    return this.auth.post<any>(this.apiUr+"login",data);
+    return this.auth.post(this.apiUr+"login",data);
   }
 
   Register(data:any):Observable<any>{
@@ -33,14 +28,5 @@ export class AuthService {
    if(this.Token())
    {return true;}
    return false;
-  }
-  getUserId(){
-   return  this.auth.get(this.apiUr+"GetUserId");
-  }
-   getProfile(id:string):Observable<Profile>{
-    return  this.auth.get<Profile>(this.profile + "index/" + id);
-  }
-  updateProfile(profile:Profile){
-   return this.auth.post<Profile>(this.profile+"updateProfile",profile);
   }
 }

@@ -1,7 +1,7 @@
-import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../Services/product.service';
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -17,7 +17,7 @@ export class ProductComponent implements OnInit {
   "imageUrl": ['',Validators.required]
 
  });
-  constructor(private product:ProductService,private fb:FormBuilder ,private toast:ToastrService) {
+  constructor(private product:ProductService,private fb:FormBuilder) {
 
   }
 
@@ -25,7 +25,6 @@ export class ProductComponent implements OnInit {
   }
   submitProduct():void{
   this.product.pushProduct(this.productForm.value).subscribe(data=>{
-   this.toast.success("Product Uploaded Successfully");
     console.log(data);
   });
   console.log(this.productForm.value);
