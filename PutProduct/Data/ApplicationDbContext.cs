@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PutProduct.abstracts.Models;
 using PutProduct.abstracts.Services;
+using PutProduct.Data.Migrations;
 
 namespace PutProduct.Data
 {
@@ -15,7 +16,14 @@ namespace PutProduct.Data
         }
         public DbSet<Product>? Products { get; set; }
         public DbSet<User>? User { get; set; }
-       
+        public DbSet<Discount>? Discounts { get; set; }
+        public DbSet<Order>? Orders { get; set; }
+
+        public DbSet<OrderProducts> ? OrderProducts { get; set; }
+
+
+
+
 
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
         {
@@ -38,6 +46,8 @@ namespace PutProduct.Data
                 WithMany(x => x.Products).
                 HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
             builder.Entity<User>().OwnsOne(e => e.profile);
+            builder.Entity<Order>().
+                HasMany(e => e.OrderProducts).WithOne().HasForeignKey(e=>e.OrderId);
             base.OnModelCreating(builder);
         }
 

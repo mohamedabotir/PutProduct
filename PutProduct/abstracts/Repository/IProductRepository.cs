@@ -12,5 +12,6 @@ namespace PutProduct.abstracts.Repository
         Task<IEnumerable<ProductModel>?> RetrieveMyProducts(string? userId);
         Task<IEnumerable<ProductModel>?> RetrieveAllProducts();
         Task<ProductModel>? RetrieveSpecificProduct(int id);
+        Task<bool> AddOrder(OrderModel id);
     }
 }

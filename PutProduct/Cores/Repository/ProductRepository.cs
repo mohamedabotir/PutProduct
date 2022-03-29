@@ -82,5 +82,99 @@ namespace PutProduct.Cores.Repository
             result.UserName = product.User.UserName;
             return result;
         }
+
+        public async Task<bool> AddOrder(OrderModel model)
+        {
+            decimal totalPrice=0;
+            string message = null;
+            bool fail=false;
+
+
+           
+          
+
+            var productcontext = _mapper.Map<ICollection<ProductModel>, ICollection<Product>>(model.products);
+
+            var products = model.products;
+            foreach (var item in products)
+            {
+                var data = _context.Products.FirstOrDefault(i => i.Id == item.Id);
+                if (data == null)
+                {
+                    fail = true;
+                    message = $"Product:{item.Name} not found";
+                    return !fail;
+                }
+
+                if (item.qty < data.Quantity || item.qty == data.Quantity)
+                {
+                    totalPrice += item.qty * data.Price;
+
+
+                }
+                else
+                {
+                    fail = true;
+                    message = $"Product:{item.Name} not Sufficient";
+                    return !fail;
+                }
+
+
+            }
+            if (fail)
+            {
+                return !fail;
+            }
+
+            var ProductOrder = _context.OrderProducts;
+            var orders = _context.Orders;
+            var discount = _context.Discounts.FirstOrDefault(x => x.Name == model.discountCode);
+            var Order = new Order();
+            
+            if (discount == null)
+            {
+                Order = new Order()
+                {
+                    totalPrice = totalPrice
+
+                }; 
+            }
+            else
+            {
+                Order = new Order()
+                {
+                    DiscountId = discount.Id,
+                    totalPrice = discount == null ? totalPrice : totalPrice * (decimal)(discount.DiscountValue / 100)
+
+                }; 
+            }
+               
+            
+
+              _context.Orders.Add(Order);
+              _context.SaveChanges();
+              
+              var Product = new Product();
+            foreach (var item in products)
+            {
+                Product = _context.Products.FirstOrDefault(x => x.Id == item.Id);
+                Product.Quantity -=item.qty;
+                _context.Products.Update(Product);
+                _context.SaveChanges();
+                ProductOrder.Add(new OrderProducts() {OrderId = Order.Id, ProductId = item.Id, qty = item.qty});
+                _context.SaveChanges();
+
+            }
+
+            if (!fail)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
     }
 }

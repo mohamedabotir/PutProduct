@@ -6,6 +6,7 @@ using PutProduct.abstracts.Services;
 using PutProduct.Data;
 using PutProduct.Model;
 using PutProduct.Services;
+using AuthorizeAttribute = Microsoft.AspNetCore.Authorization.AuthorizeAttribute;
 using Profile = PutProduct.Data.Profile;
 
 namespace PutProduct.Controllers
@@ -26,6 +27,7 @@ namespace PutProduct.Controllers
         }
         [Route(nameof(Index)+"/{id}")]
         [HttpGet()]
+        [Authorize]
         public async Task<IActionResult> Index(string id)
         {
             var user = await _ctx.User!.FirstOrDefaultAsync(e => e.Id == id);
@@ -38,6 +40,7 @@ namespace PutProduct.Controllers
         [Microsoft.AspNetCore.Authorization.Authorize]
         [Route(nameof(UpdateProfile))]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> UpdateProfile(Profile profile)
         {
             var userId = _user.GetUserId();

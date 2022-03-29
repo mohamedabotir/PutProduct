@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PutProduct.abstracts.Repository;
 using PutProduct.abstracts.Services;
 using PutProduct.Model;
@@ -100,5 +101,21 @@ namespace PutProduct.Controllers
                 return NotFound("The Product is not Available");
             return Ok(result);
         }
+        [Route(nameof(Cart))]
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        
+        public async Task<IActionResult> Cart([FromBody]OrderModel model) {
+            var userId = _user.GetUserId();
+       
+            var result =  await _productRepository.AddOrder(model);
+            
+            if (result == false)
+                return NotFound("The Product is not Available");
+            return Ok(result);
+        }
      }
+
+    
 }

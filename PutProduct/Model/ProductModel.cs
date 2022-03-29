@@ -24,8 +24,9 @@ namespace PutProduct.Model
         
         public string? UserId { get; set; }
         public string? UserName { get; set; }      
+        public int qty { get; set; }
 
-        public ProductModel(string description, int quantity, string name, decimal price, int categoryId, string imageUrl,string? userId,string? userName)
+        public ProductModel(string description, int quantity, string name, decimal price, int categoryId, string imageUrl,string? userId,string? userName,int qty)
         {
             Description = description;
             Quantity = quantity;
@@ -35,6 +36,7 @@ namespace PutProduct.Model
             this.ImageUrl = imageUrl;
             UserId = userId;
             UserName = userName;
+            this.qty = qty;
         }
 
         public ProductModel()
