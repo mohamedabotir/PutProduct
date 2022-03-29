@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\PutProduct\\PutProduct\\PutProduct.csproj": {}
+    "C:\\Users\\H\\Desktop\\PutProduct\\PutProduct\\PutProduct.csproj": {}
   },
   "projects": {
-    "C:\\PutProduct\\PutProduct\\PutProduct.csproj": {
+    "C:\\Users\\H\\Desktop\\PutProduct\\PutProduct\\PutProduct.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\PutProduct\\PutProduct\\PutProduct.csproj",
+        "projectUniqueName": "C:\\Users\\H\\Desktop\\PutProduct\\PutProduct\\PutProduct.csproj",
         "projectName": "PutProduct",
-        "projectPath": "C:\\PutProduct\\PutProduct\\PutProduct.csproj",
+        "projectPath": "C:\\Users\\H\\Desktop\\PutProduct\\PutProduct\\PutProduct.csproj",
         "packagesPath": "C:\\Users\\H\\.nuget\\packages\\",
-        "outputPath": "C:\\PutProduct\\PutProduct\\obj\\",
+        "outputPath": "C:\\Users\\H\\Desktop\\PutProduct\\PutProduct\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\H\\AppData\\Roaming\\NuGet\\NuGet.Config",
