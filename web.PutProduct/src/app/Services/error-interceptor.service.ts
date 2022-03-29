@@ -17,8 +17,6 @@ export class ErrorInterceptorService implements HttpInterceptor {
           this.toast.success(evt.body["message"]);
       }
    }}),
-
-    retry(1),
     catchError((err)=>{
 
 

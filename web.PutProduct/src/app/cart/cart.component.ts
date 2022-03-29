@@ -11,6 +11,7 @@ import { Product } from 'src/Shared/Products';
 })
 export class CartComponent implements OnInit,OnChanges {
   @Input() qty!:Number;
+
   constructor(private cartService:CartService,private toast:ToastrService) { }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.products,changes+"saddsadsadsadasd");
@@ -33,7 +34,14 @@ export class CartComponent implements OnInit,OnChanges {
 
   }
   pay(){
-  this.cartService.Pay(this.products,"fdsfsdfsd");
+  this.cartService.Pay(this.products,"fdsfsdfsd").subscribe(data=>{
+    if(data){
+      this.products=[];
+    this.toast.success("Order processed successfully delivery will contact you with in 24hour")
+   localStorage.setItem("products","");
+  }
+  console.log(data);
+  });
 }
 increment(index:number){
   if(this.products[index].qty +1 >this.products[index].quantity)
@@ -48,5 +56,6 @@ decrement(index:number){
   else
   this.products[index].qty -= 1;
 }
+
 
 }
