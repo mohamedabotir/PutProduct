@@ -39,6 +39,8 @@ namespace PutProduct.Data
         {
             
         }
+<<<<<<< HEAD
+=======
         [Required]
         public string CreatedBy { get; set; }
         [Required]
@@ -47,6 +49,7 @@ namespace PutProduct.Data
         public DateTime? ModifiedOn { get; set; }
         public string? DeletedBy { get; set; }
         public DateTime? DeletedOn { get; set; }
+>>>>>>> 379e267fae2a188d12179926643ecb260907ea7c
     }
     public enum ProductType {
         Electronic,Book,Computer,GraphicCard,Other

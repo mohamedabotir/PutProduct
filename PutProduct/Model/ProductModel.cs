@@ -21,12 +21,23 @@ namespace PutProduct.Model
         public int CategoryId { get; set; }
          
         public string ImageUrl { get; set; }
+<<<<<<< HEAD
+        [JsonIgnore]
+        public string UserId { get; set; }
+
+        public ProductModel(string description, int quantity, string name, decimal price, int categoryId, string imageUrl)
+=======
         
         public string? UserId { get; set; }
         public string? UserName { get; set; }      
         public int qty { get; set; }
 
+<<<<<<< HEAD
         public ProductModel(string description, int quantity, string name, decimal price, int categoryId, string imageUrl,string? userId,string? userName,int qty)
+=======
+        public ProductModel(string description, int quantity, string name, decimal price, int categoryId, string imageUrl,string? userId,string? userName)
+>>>>>>> 379e267fae2a188d12179926643ecb260907ea7c
+>>>>>>> d1b3b9f2a824929312ae40626be27db3f1e95974
         {
             Description = description;
             Quantity = quantity;
@@ -37,6 +48,11 @@ namespace PutProduct.Model
             UserId = userId;
             UserName = userName;
             this.qty = qty;
+        }
+
+        public ProductModel()
+        {
+                
         }
 
         public ProductModel()

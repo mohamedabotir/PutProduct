@@ -14,6 +14,8 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = C:\PutProduct\PutProduct
 build_property._RazorSourceGeneratorDebug = 
+<<<<<<< HEAD
+=======
 
 [C:/PutProduct/PutProduct/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
@@ -46,3 +48,4 @@ build_metadata.AdditionalFiles.CssScope =
 [C:/PutProduct/PutProduct/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-q9igwuhpf1
+>>>>>>> 379e267fae2a188d12179926643ecb260907ea7c
