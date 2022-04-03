@@ -15,6 +15,8 @@ namespace PutProduct.Infrastructure
                     o=>o
                         .MapFrom(x=>x.User!.UserName)).
                 ReverseMap();
+
+            CreateMap<Order, OrderModel>().ReverseMap();
         }
     }
 }

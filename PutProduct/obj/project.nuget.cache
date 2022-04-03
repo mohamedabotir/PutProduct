@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DlFjuXn85MPJRkzaHDh+RhtAq568Q0X2B4SpbIED1qim1OfYQtFIZu3/UjV4SUWWKjJI3L7LP+jtw6iCFFfLqA==",
+  "dgSpecHash": "nKJA4Ozx0OaYAyePSVnvkkvF+f/qAiN9ePgsH/OtP/IWbHtk5RG1tQQ+chHsjGtcQg4t/EtwwDdC3wv6S1xLdQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\H\\Desktop\\PutProduct\\PutProduct\\PutProduct.csproj",
+  "projectFilePath": "D:\\IT\\.NET\\putproduct\\PutProduct\\PutProduct\\PutProduct.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\H\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\H\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",

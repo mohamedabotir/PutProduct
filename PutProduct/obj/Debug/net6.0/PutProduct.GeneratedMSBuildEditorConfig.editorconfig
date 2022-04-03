@@ -8,41 +8,41 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = PutProduct
 build_property.RootNamespace = PutProduct
-build_property.ProjectDir = C:\Users\H\Desktop\PutProduct\PutProduct\
+build_property.ProjectDir = D:\IT\.NET\putproduct\PutProduct\PutProduct\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\H\Desktop\PutProduct\PutProduct
+build_property.MSBuildProjectDirectory = D:\IT\.NET\putproduct\PutProduct\PutProduct
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/H/Desktop/PutProduct/PutProduct/Pages/Error.cshtml]
+[D:/IT/.NET/putproduct/PutProduct/PutProduct/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/H/Desktop/PutProduct/PutProduct/Pages/Index.cshtml]
+[D:/IT/.NET/putproduct/PutProduct/PutProduct/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/H/Desktop/PutProduct/PutProduct/Pages/Privacy.cshtml]
+[D:/IT/.NET/putproduct/PutProduct/PutProduct/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/H/Desktop/PutProduct/PutProduct/Pages/Shared/_LoginPartial.cshtml]
+[D:/IT/.NET/putproduct/PutProduct/PutProduct/Pages/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/H/Desktop/PutProduct/PutProduct/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[D:/IT/.NET/putproduct/PutProduct/PutProduct/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/H/Desktop/PutProduct/PutProduct/Pages/_ViewImports.cshtml]
+[D:/IT/.NET/putproduct/PutProduct/PutProduct/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/H/Desktop/PutProduct/PutProduct/Pages/_ViewStart.cshtml]
+[D:/IT/.NET/putproduct/PutProduct/PutProduct/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/H/Desktop/PutProduct/PutProduct/Pages/Shared/_Layout.cshtml]
+[D:/IT/.NET/putproduct/PutProduct/PutProduct/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-q9igwuhpf1

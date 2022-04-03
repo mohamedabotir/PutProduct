@@ -10,6 +10,12 @@ namespace PutProduct.Data
         public decimal totalPrice { set; get; }
         public int? DiscountId { set; get; }
         public Discount Discount { set; get; }
+        public DateTime OrderTime { get; set; }
+
+
+        public string UserId { get; set; }
+
+        public User User { get; set; }
 
 
     }

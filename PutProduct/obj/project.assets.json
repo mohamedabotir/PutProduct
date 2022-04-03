@@ -2641,11 +2641,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\H\\Desktop\\PutProduct\\PutProduct\\PutProduct.csproj",
+      "projectUniqueName": "D:\\IT\\.NET\\putproduct\\PutProduct\\PutProduct\\PutProduct.csproj",
       "projectName": "PutProduct",
-      "projectPath": "C:\\Users\\H\\Desktop\\PutProduct\\PutProduct\\PutProduct.csproj",
+      "projectPath": "D:\\IT\\.NET\\putproduct\\PutProduct\\PutProduct\\PutProduct.csproj",
       "packagesPath": "C:\\Users\\H\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\H\\Desktop\\PutProduct\\PutProduct\\obj\\",
+      "outputPath": "D:\\IT\\.NET\\putproduct\\PutProduct\\PutProduct\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\H\\AppData\\Roaming\\NuGet\\NuGet.Config",

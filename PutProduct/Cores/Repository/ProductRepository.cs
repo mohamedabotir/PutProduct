@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PutProduct.abstracts.Repository;
+using PutProduct.abstracts.Services;
 using PutProduct.Data;
 using PutProduct.Model;
 
@@ -10,11 +11,12 @@ namespace PutProduct.Cores.Repository
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
-
-        public ProductRepository(ApplicationDbContext context,IMapper mapper)
+        private readonly IIdentityService _user;
+        public ProductRepository(ApplicationDbContext context,IMapper mapper,IIdentityService user)
         {
             _context = context;
             _mapper = mapper;
+            _user = user;
         }
         public async Task<int> CreateProduct(ProductModel product, string? userId)
         {
@@ -93,9 +95,9 @@ namespace PutProduct.Cores.Repository
            
           
 
-            var productcontext = _mapper.Map<ICollection<ProductModel>, ICollection<Product>>(model.products);
+            var productcontext = _mapper.Map<ICollection<ProductModel>, ICollection<Product>>(model.OrderProducts);
 
-            var products = model.products;
+            var products = model.OrderProducts;
             foreach (var item in products)
             {
                 var data = _context.Products.FirstOrDefault(i => i.Id == item.Id);
@@ -135,8 +137,10 @@ namespace PutProduct.Cores.Repository
             {
                 Order = new Order()
                 {
-                    totalPrice = totalPrice
-
+                    totalPrice = totalPrice,
+                    UserId = _user.GetUserId(),
+                    OrderTime = DateTime.Now
+                    
                 }; 
             }
             else
@@ -144,17 +148,18 @@ namespace PutProduct.Cores.Repository
                 Order = new Order()
                 {
                     DiscountId = discount.Id,
-                    totalPrice = discount == null ? totalPrice : totalPrice * (decimal)(discount.DiscountValue / 100)
-
+                    totalPrice = discount == null ? totalPrice : totalPrice * (decimal)(discount.DiscountValue / 100),
+                    UserId = _user.GetUserId(),
+                    OrderTime = DateTime.UtcNow
                 }; 
             }
                
             
 
-              _context.Orders.Add(Order);
-              _context.SaveChanges();
+            _context.Orders.Add(Order);
+            _context.SaveChanges();
               
-              var Product = new Product();
+            var Product = new Product();
             foreach (var item in products)
             {
                 Product = _context.Products.FirstOrDefault(x => x.Id == item.Id);
@@ -175,6 +180,13 @@ namespace PutProduct.Cores.Repository
                 return false;
             }
 
+        }
+
+        public IEnumerable<Order> GetAllOrders()
+        {
+            var userId = _user.GetUserId();
+            var orders = _context.Orders.Where(e => e.UserId == userId).Include(e=>e.OrderProducts).AsEnumerable();
+            return orders;
         }
     }
 }

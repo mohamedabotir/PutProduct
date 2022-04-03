@@ -105,7 +105,7 @@ namespace PutProduct.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        
+        [Authorize]
         public async Task<IActionResult> Cart([FromBody]OrderModel model) {
             var userId = _user.GetUserId();
        
@@ -115,7 +115,19 @@ namespace PutProduct.Controllers
                 return NotFound("The Product is not Available");
             return Ok(result);
         }
-     }
+
+        [Route(nameof(OrderHistory))]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize]
+        public async Task<IActionResult> OrderHistory()
+        {
+            var products = _productRepository.GetAllOrders();
+            return Ok(products);
+        }
+
+    }
 
     
 }
