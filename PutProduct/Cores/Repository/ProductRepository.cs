@@ -185,7 +185,7 @@ namespace PutProduct.Cores.Repository
         public IEnumerable<Order> GetAllOrders()
         {
             var userId = _user.GetUserId();
-            var orders = _context.Orders.Where(e => e.UserId == userId).Include(e=>e.OrderProducts).AsEnumerable();
+            var orders = _context.Orders.Where(e => e.UserId == userId).Include(e=>e.OrderProducts).ThenInclude(e=>e.Product).AsEnumerable();
             return orders;
         }
     }
