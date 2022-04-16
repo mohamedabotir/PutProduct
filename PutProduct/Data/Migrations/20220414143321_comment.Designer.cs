@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PutProduct.Data;
 
@@ -11,9 +12,10 @@ using PutProduct.Data;
 namespace PutProduct.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220414143321_comment")]
+    partial class comment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,9 +164,6 @@ namespace PutProduct.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CommentDateTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Message")
                         .IsRequired()
@@ -441,7 +440,7 @@ namespace PutProduct.Data.Migrations
             modelBuilder.Entity("PutProduct.Data.Comment", b =>
                 {
                     b.HasOne("PutProduct.Data.Product", "Product")
-                        .WithMany("Comments")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -545,11 +544,6 @@ namespace PutProduct.Data.Migrations
             modelBuilder.Entity("PutProduct.Data.Order", b =>
                 {
                     b.Navigation("OrderProducts");
-                });
-
-            modelBuilder.Entity("PutProduct.Data.Product", b =>
-                {
-                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("PutProduct.Data.User", b =>

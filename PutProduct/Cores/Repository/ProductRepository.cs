@@ -188,5 +188,25 @@ namespace PutProduct.Cores.Repository
             var orders = _context.Orders.Where(e => e.UserId == userId).Include(e=>e.OrderProducts).ThenInclude(e=>e.Product).AsEnumerable();
             return orders;
         }
+
+        public async Task<bool> Comment(CommentModel comment)
+        {
+            var commentMap = _mapper.Map<CommentModel, Comment>(comment);
+            commentMap.UserId = _user.GetUserId();
+            commentMap.CommentDateTime = DateTime.Now;
+         await _context.Comments.AddAsync(commentMap);
+         await _context.SaveChangesAsync();
+
+         return true;
+
+        }
+
+        public async Task<IEnumerable<CommentModel>> GetProductComment(int ProductId)
+        {
+            var result =   _context.Comments.Where(e => e.ProductId == ProductId).Include(e=>e.User).AsEnumerable();
+
+            return _mapper.Map<IEnumerable<Comment>, IEnumerable<CommentModel>>(result);
+
+        }
     }
 }

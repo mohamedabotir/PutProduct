@@ -127,7 +127,30 @@ namespace PutProduct.Controllers
             return Ok(products);
         }
 
+
+        [HttpPost]
+        [Authorize]
+        [Route(nameof(Comment))]
+        public async Task<IActionResult> Comment([FromBody] CommentModel comment)
+        {
+            var result = await _productRepository.Comment(comment);
+
+            if (result == false)
+                return BadRequest("Can't Comment");
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route(nameof(GetComments))]
+        public async Task<IActionResult> GetComments(int id)
+        {
+            var result = await _productRepository.GetProductComment(id);
+
+            return Ok(result);
+        }
+
     }
 
-    
+
 }

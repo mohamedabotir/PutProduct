@@ -21,7 +21,7 @@ namespace PutProduct.Data
 
         public DbSet<OrderProducts> ? OrderProducts { get; set; }
 
-
+        public DbSet<Comment> Comments { get; set; }
 
 
 
@@ -48,6 +48,11 @@ namespace PutProduct.Data
             builder.Entity<User>().OwnsOne(e => e.profile);
             builder.Entity<Order>().
                 HasMany(e => e.OrderProducts).WithOne().HasForeignKey(e=>e.OrderId);
+           
+            builder.Entity<Comment>().Property(e => e.Message).HasMaxLength(250);
+
+            builder.Entity<Product>().HasMany(e => e.Comments).WithOne(e => e.Product);
+           
             base.OnModelCreating(builder);
         }
 
