@@ -149,6 +149,42 @@ namespace PutProduct.Controllers
 
             return Ok(result);
         }
+        [Authorize]
+        [HttpGet]
+        [Route(nameof(GetComment))]
+        public async Task<IActionResult> GetComment(int id)
+        {
+            var result = await _productRepository.GetComment(id);
+            if (result == null)
+                return NotFound("Comment NotFound");
+            return Ok(result);
+        }
+        [Authorize]
+        [HttpPost]
+        [Route(nameof(UpdateComment))]
+       
+        public async Task<IActionResult> UpdateComment([FromBody]UpdateCommentModel comment)
+        {
+            var result = await _productRepository.UpdateComment(comment);
+            if (result == false)
+                return NotFound("Comment NotFound!");
+            
+            return Ok("Comment Updated Successfully");
+        }
+        [Authorize]
+        [HttpPost]
+        [Route(nameof(DeleteComment))]
+       
+        public async Task<IActionResult> DeleteComment(int id)
+        {
+            var result = await _productRepository.DeleteComment(id);
+            if (result == false)
+                return NotFound("Comment NotFound!");
+            
+            return Ok("Comment Deleted Successfully");
+        }
+
+        
 
     }
 

@@ -4,6 +4,7 @@ namespace PutProduct.Model
 {
     public class CommentModel
     {
+        public int Id { get; set; }
         [Required]
         public string Message { get; set; }
         [Required]
@@ -12,6 +13,8 @@ namespace PutProduct.Model
         public string? Name { get; set; }
 
         public DateTime CommentDateTime { get; set; }
+
+        
 
     }
 }

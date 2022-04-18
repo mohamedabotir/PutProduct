@@ -18,6 +18,9 @@ namespace PutProduct.abstracts.Repository
         Task<bool> Comment(CommentModel comment);
 
         Task<IEnumerable<CommentModel>> GetProductComment(int ProductId);
+        Task<CommentModel> GetComment(int commentId);
 
+        Task<bool> UpdateComment(UpdateCommentModel comment);
+        Task<bool> DeleteComment(int id);
     }
 }

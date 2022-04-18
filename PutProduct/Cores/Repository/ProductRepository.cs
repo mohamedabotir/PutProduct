@@ -203,10 +203,53 @@ namespace PutProduct.Cores.Repository
 
         public async Task<IEnumerable<CommentModel>> GetProductComment(int ProductId)
         {
-            var result =   _context.Comments.Where(e => e.ProductId == ProductId).Include(e=>e.User).AsEnumerable();
+            var result =   _context.Comments.Where(e => e.ProductId == ProductId && e.DeletedBy == null).Include(e=>e.User).AsEnumerable();
 
             return _mapper.Map<IEnumerable<Comment>, IEnumerable<CommentModel>>(result);
 
+        }
+
+        public async Task<CommentModel> GetComment(int commentId)
+        {
+            var comment = await _context.Comments.Include(e=>e.Product).FirstOrDefaultAsync(c => c.Id == commentId);
+            var isOwn = comment.UserId == _user.GetUserId();
+            if (!isOwn)
+                return null;
+            if (comment == null)
+                return null;
+            return _mapper.Map<Comment, CommentModel>(comment);
+        }
+
+        public async Task<bool> UpdateComment(UpdateCommentModel comment)
+        {
+            var result = await _context.Comments.FirstOrDefaultAsync(e => e.Id == comment.Id);
+            var isOwn = result.UserId == _user.GetUserId();
+            if (!isOwn)
+                return false;
+            if (result == null)
+            {
+                return false;
+            }
+
+            result.Message = comment.Message;
+
+            _context.Comments.Update(result);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeleteComment(int id)
+        {
+            var comment = _context.Comments.FirstOrDefault(e => e.Id == id);
+            var isOwn = comment.UserId == _user.GetUserId();
+            if (!isOwn)
+                return false;
+            if (comment == null)
+                return false;
+
+            _context.Comments.Remove(comment);
+           await _context.SaveChangesAsync();
+           return true;
         }
     }
 }
