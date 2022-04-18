@@ -9,6 +9,9 @@ namespace PutProduct.Model
         [Required]
         public int ProductId { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
+
+        public DateTime CommentDateTime { get; set; }
+
     }
 }

@@ -76,9 +76,13 @@ namespace PutProduct.Data
                        {
                            deleteEntity.CreatedBy = username;
                            deleteEntity.CreatedOn = DateTime.UtcNow;
+                           if (e.Entity is Comment comment)
+                           {
+                               comment.UserId = _user?.GetUserId()!;
+                           }
                            if (e.Entity is Product prod)
                            {
-                               prod.UserId = _user.GetUserId();
+                               prod.UserId = _user?.GetUserId();
                            }
                        }
                        else if (e.State == EntityState.Modified)
