@@ -135,9 +135,8 @@ namespace PutProduct.Controllers
         {
             var result = await _productRepository.Comment(comment);
 
-            if (result == false)
+            if (result == null)
                 return BadRequest("Can't Comment");
-
             return Ok(result);
         }
 
@@ -160,7 +159,7 @@ namespace PutProduct.Controllers
             return Ok(result);
         }
         [Authorize]
-        [HttpPost]
+        [HttpPut]
         [Route(nameof(UpdateComment))]
        
         public async Task<IActionResult> UpdateComment([FromBody]UpdateCommentModel comment)
@@ -169,10 +168,10 @@ namespace PutProduct.Controllers
             if (result == false)
                 return NotFound("Comment NotFound!");
             
-            return Ok("Comment Updated Successfully");
+            return Ok( new {message="Comment Updated Successfully"});
         }
         [Authorize]
-        [HttpPost]
+        [HttpDelete]
         [Route(nameof(DeleteComment))]
        
         public async Task<IActionResult> DeleteComment(int id)
@@ -181,7 +180,7 @@ namespace PutProduct.Controllers
             if (result == false)
                 return NotFound("Comment NotFound!");
             
-            return Ok("Comment Deleted Successfully");
+            return Ok(new {message= "Comment Deleted Successfully" });
         }
 
         

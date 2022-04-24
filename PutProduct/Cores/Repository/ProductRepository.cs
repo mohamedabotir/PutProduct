@@ -189,15 +189,18 @@ namespace PutProduct.Cores.Repository
             return orders;
         }
 
-        public async Task<bool> Comment(CommentModel comment)
+        public async Task<CommentModel> Comment(CommentModel comment)
         {
+
             var commentMap = _mapper.Map<CommentModel, Comment>(comment);
             commentMap.UserId = _user.GetUserId();
             commentMap.CommentDateTime = DateTime.Now;
-         await _context.Comments.AddAsync(commentMap);
+           await _context.Database.BeginTransactionAsync();
+            var commentData = await _context.Comments.AddAsync(commentMap);
          await _context.SaveChangesAsync();
-
-         return true;
+        await _context.Database.CommitTransactionAsync();
+        var result = _context.Comments.Include(e => e.User).FirstOrDefault(e => e.Id == commentData.Entity.Id);
+         return _mapper.Map<Comment,CommentModel>(result);
 
         }
 
@@ -232,6 +235,7 @@ namespace PutProduct.Cores.Repository
             }
 
             result.Message = comment.Message;
+            result.CommentDateTime = DateTime.Now;
 
             _context.Comments.Update(result);
             await _context.SaveChangesAsync();
