@@ -245,7 +245,8 @@ namespace PutProduct.Cores.Repository
         public async Task<bool> DeleteComment(int id)
         {
             var comment = _context.Comments.FirstOrDefault(e => e.Id == id);
-            var isOwn = comment.UserId == _user.GetUserId();
+            var userId = _user.GetUserId();
+            var isOwn = comment.UserId == userId;
             if (!isOwn)
                 return false;
             if (comment == null)
