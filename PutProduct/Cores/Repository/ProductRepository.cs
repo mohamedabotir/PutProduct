@@ -97,6 +97,7 @@ namespace PutProduct.Cores.Repository
 
             var productcontext = _mapper.Map<ICollection<ProductModel>, ICollection<Product>>(model.OrderProducts);
 
+            await _context.Database.BeginTransactionAsync();
             var products = model.OrderProducts;
             foreach (var item in products)
             {
@@ -164,13 +165,17 @@ namespace PutProduct.Cores.Repository
             {
                 Product = _context.Products.FirstOrDefault(x => x.Id == item.Id);
                 Product.Quantity -=item.qty;
+                var user = await _context.User.FirstOrDefaultAsync(e => e.Id == Product.UserId);
+                user.Balance += Product.Price;
+                
                 _context.Products.Update(Product);
-                _context.SaveChanges();
+                
                 ProductOrder.Add(new OrderProducts() {OrderId = Order.Id, ProductId = item.Id, qty = item.qty});
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
             }
 
+           await _context.Database.CommitTransactionAsync();
             if (!fail)
             {
                 return true;

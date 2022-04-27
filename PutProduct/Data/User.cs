@@ -8,6 +8,7 @@ namespace PutProduct.Data
     {
 
         public Profile profile { get; set; }
+        public decimal Balance { get; set; }
         
         public ICollection<Product> Products { get; set; }
         public User()
