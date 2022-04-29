@@ -7,6 +7,7 @@ using PutProduct.Data;
 using PutProduct.Services.jwt;
 using Newtonsoft.Json;
 using PutProduct.abstracts.Services;
+using PutProduct.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,7 @@ builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddTransient<IProductRepository,ProductRepository>();
 builder.Services.AddTransient<IIdentityService, IdentityExtensions>();
 builder.Services.AddCors();
+builder.Services.AddSignalR();
 
 
 
@@ -68,5 +70,9 @@ app.UseCors(
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<NotificationHub>("/NotificationHub");
+});
 app.MapControllers();
 app.Run();

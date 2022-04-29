@@ -22,6 +22,7 @@ namespace PutProduct.Data
         public DbSet<OrderProducts> ? OrderProducts { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
 
 
@@ -52,7 +53,10 @@ namespace PutProduct.Data
             builder.Entity<Comment>().Property(e => e.Message).HasMaxLength(250);
 
             builder.Entity<Product>().HasMany(e => e.Comments).WithOne(e => e.Product);
-           
+
+            builder.Entity<Notification>().HasOne(e => e.Sender).WithMany(e => e.Notifications)
+                .OnDelete(DeleteBehavior.Restrict);
+            
             base.OnModelCreating(builder);
         }
 
@@ -76,6 +80,10 @@ namespace PutProduct.Data
                        {
                            deleteEntity.CreatedBy = username;
                            deleteEntity.CreatedOn = DateTime.UtcNow;
+                           if (e.Entity is Notification notification)
+                           {
+                               notification.SenderId = _user?.GetUserId()!;
+                           }
                            if (e.Entity is Comment comment)
                            {
                                comment.UserId = _user?.GetUserId()!;

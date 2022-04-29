@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "bXzc2fB8EyGjfTex+XtLKNMGI+j7CSNyvi79FfJs618=",
+  "Hash": "X6YVLuslBZwAu3Ql2bYw7rtLVZKSqYmKe61s0Qa1Upk=",
   "Source": "PutProduct",
   "BasePath": "_content/PutProduct",
   "Mode": "Default",
@@ -1105,6 +1105,23 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "D:\\IT\\.NET\\putproduct\\PutProduct\\PutProduct\\wwwroot\\js\\Notification.js",
+      "SourceId": "PutProduct",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\IT\\.NET\\putproduct\\PutProduct\\PutProduct\\wwwroot\\",
+      "BasePath": "_content/PutProduct",
+      "RelativePath": "js/Notification.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Notification.js"
+    },
+    {
       "Identity": "D:\\IT\\.NET\\putproduct\\PutProduct\\PutProduct\\wwwroot\\js\\site.js",
       "SourceId": "PutProduct",
       "SourceType": "Discovered",
@@ -2089,6 +2106,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "D:\\IT\\.NET\\putproduct\\PutProduct\\PutProduct\\wwwroot\\lib\\signalr\\signalr.min.js",
+      "SourceId": "PutProduct",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\IT\\.NET\\putproduct\\PutProduct\\PutProduct\\wwwroot\\",
+      "BasePath": "_content/PutProduct",
+      "RelativePath": "lib/signalr/signalr.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\signalr\\signalr.min.js"
     }
   ]
 }

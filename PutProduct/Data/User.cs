@@ -11,10 +11,13 @@ namespace PutProduct.Data
         public decimal Balance { get; set; }
         
         public ICollection<Product> Products { get; set; }
+
+        public ICollection<Notification> Notifications { get; set; }
         public User()
         {
            
             Products = new List<Product>();
+            Notifications = new List<Notification>();
         }
 
         

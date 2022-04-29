@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using PutProduct.abstracts.Repository;
 using PutProduct.abstracts.Services;
 using PutProduct.Data;
+using PutProduct.Hubs;
 using PutProduct.Model;
 
 namespace PutProduct.Cores.Repository
@@ -12,11 +14,13 @@ namespace PutProduct.Cores.Repository
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IIdentityService _user;
-        public ProductRepository(ApplicationDbContext context,IMapper mapper,IIdentityService user)
+        private readonly IHubContext<NotificationHub, IHub> _hubContext;
+        public ProductRepository(IHubContext<NotificationHub, IHub> hubContext, ApplicationDbContext context,IMapper mapper,IIdentityService user)
         {
             _context = context;
             _mapper = mapper;
             _user = user;
+            _hubContext = hubContext;
         }
         public async Task<int> CreateProduct(ProductModel product, string? userId)
         {
@@ -196,6 +200,7 @@ namespace PutProduct.Cores.Repository
 
         public async Task<CommentModel> Comment(CommentModel comment)
         {
+            var userName = _user.GetUserName();
 
             var commentMap = _mapper.Map<CommentModel, Comment>(comment);
             commentMap.UserId = _user.GetUserId();
@@ -203,6 +208,8 @@ namespace PutProduct.Cores.Repository
            await _context.Database.BeginTransactionAsync();
             var commentData = await _context.Comments.AddAsync(commentMap);
          await _context.SaveChangesAsync();
+         var productOwner = _context.Products.FirstOrDefault(e => e.Id == comment.ProductId);
+        await Notify(new NotificationModel(){Message = "You have Received Comment from "+userName,userId = productOwner.UserId});
         await _context.Database.CommitTransactionAsync();
         var result = _context.Comments.Include(e => e.User).FirstOrDefault(e => e.Id == commentData.Entity.Id);
          return _mapper.Map<Comment,CommentModel>(result);
@@ -260,6 +267,13 @@ namespace PutProduct.Cores.Repository
             _context.Comments.Remove(comment);
            await _context.SaveChangesAsync();
            return true;
+        }
+
+        private async Task Notify(NotificationModel model)
+        {
+            _context.Notifications.Add(new Notification() {ReceiverId = model.userId, Message = model.Message});
+           await _context.SaveChangesAsync();
+             await _hubContext.Clients.All.BroadcastMessage();
         }
     }
 }

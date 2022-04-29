@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using PutProduct.abstracts.Repository;
 using PutProduct.abstracts.Services;
+using PutProduct.Hubs;
 using PutProduct.Model;
 
 namespace PutProduct.Controllers
@@ -13,6 +15,7 @@ namespace PutProduct.Controllers
     {
         private readonly IProductRepository _productRepository;
         private readonly IIdentityService _user;
+        
 
         public ProductController(IProductRepository productRepository,IIdentityService user)
         {
