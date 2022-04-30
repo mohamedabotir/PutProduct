@@ -18,6 +18,7 @@ namespace PutProduct.Infrastructure
 
             CreateMap<Order, OrderModel>().ReverseMap();
             CreateMap<Comment, CommentModel>().ForMember(x=>x.Name,o=>o.MapFrom(x=>x.User.UserName)).ReverseMap();
+            CreateMap<Notification, NotificationModel>().ReverseMap();
         }
     }
 }

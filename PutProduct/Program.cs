@@ -28,8 +28,22 @@ builder.Services.AddTransient<ApplicationDbContext>();
 builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddTransient<IProductRepository,ProductRepository>();
 builder.Services.AddTransient<IIdentityService, IdentityExtensions>();
-builder.Services.AddCors();
+builder.Services.AddTransient<INotificationRepository, NotificationRepository>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("_myAllowSpecificOrigins",
+        builder =>
+        {
+            builder.WithOrigins("https://localhost:4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .SetIsOriginAllowed((x) => true)
+                .AllowCredentials();
+        });
+});
 builder.Services.AddSignalR();
+
+
 
 
 
@@ -64,15 +78,16 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
  
-
-app.UseCors(
-    x => { x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
+app.UseRouting();
+app.UseCors("_myAllowSpecificOrigins");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapControllers();
     endpoints.MapHub<NotificationHub>("/NotificationHub");
 });
-app.MapControllers();
+
 app.Run();
