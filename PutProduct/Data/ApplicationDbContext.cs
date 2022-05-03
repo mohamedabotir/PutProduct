@@ -82,6 +82,8 @@ namespace PutProduct.Data
                            deleteEntity.CreatedOn = DateTime.UtcNow;
                            if (e.Entity is Notification notification)
                            {
+                               deleteEntity.CreatedBy = username;
+                               deleteEntity.CreatedOn = DateTime.UtcNow;
                                notification.SenderId = _user?.GetUserId()!;
                            }
                            if (e.Entity is Comment comment)
@@ -95,8 +97,15 @@ namespace PutProduct.Data
                        }
                        else if (e.State == EntityState.Modified)
                        {
+                           deleteEntity.CreatedBy = username;
+                           
                            deleteEntity.ModifiedBy = username;
                            deleteEntity.ModifiedOn = DateTime.UtcNow;
+                           if (e.Entity is Notification notification)
+                           {
+                               notification.isRead = true;
+                               
+                           }
                        }
                    }
                     

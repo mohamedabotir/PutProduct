@@ -28,5 +28,31 @@ namespace PutProduct.Cores.Repository
 
             return _mapper.Map<IEnumerable<Notification>, IEnumerable<NotificationModel>>(notifications);
         }
+
+        public async Task<bool> MarkItAsRead(IEnumerable<NotificationModel> model)
+        {
+            var map = _mapper.Map<IEnumerable<NotificationModel>, IEnumerable<Notification>>(model);
+            var NotReaded = map.Where(e => e.isRead == false);
+
+            if (!NotReaded.Any(e=>e.isRead==false))
+            {
+                return false;
+            } 
+          
+            _context.Notifications.UpdateRange(NotReaded);
+            _context.SaveChanges();
+            
+            
+            
+            return true;
+
+        }
+
+        public async Task<int> GetUnReadedNotificationCount()
+        {
+            var count = await _context.Notifications.Where(e => e.isRead == false && e.ReceiverId == _identityService.GetUserId()).CountAsync();
+            return count;
+             
+        }
     }
 }
