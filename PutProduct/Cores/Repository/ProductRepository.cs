@@ -209,7 +209,7 @@ namespace PutProduct.Cores.Repository
             var commentData = await _context.Comments.AddAsync(commentMap);
          await _context.SaveChangesAsync();
          var productOwner = _context.Products.FirstOrDefault(e => e.Id == comment.ProductId);
-        await Notify(new NotificationModel(){Message = "You have Received Comment from "+userName,ReceiverId = productOwner.UserId});
+        await Notify(new NotificationModel(){Message = "Comment By "+userName+" "+comment.Message,ReceiverId = productOwner.UserId});
         await _context.Database.CommitTransactionAsync();
         var result = _context.Comments.Include(e => e.User).FirstOrDefault(e => e.Id == commentData.Entity.Id);
          return _mapper.Map<Comment,CommentModel>(result);
