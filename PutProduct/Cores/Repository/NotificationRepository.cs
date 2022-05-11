@@ -23,7 +23,7 @@ namespace PutProduct.Cores.Repository
         {
             var userId = _identityService.GetUserId();
             var notifications = _context.Notifications
-                .Where(e => e.ReceiverId == userId)
+                .Where(e => e.ReceiverId == userId && e.SenderId !=userId)
                 .AsEnumerable();
 
             return _mapper.Map<IEnumerable<Notification>, IEnumerable<NotificationModel>>(notifications);
@@ -50,7 +50,8 @@ namespace PutProduct.Cores.Repository
 
         public async Task<int> GetUnReadedNotificationCount()
         {
-            var count = await _context.Notifications.Where(e => e.isRead == false && e.ReceiverId == _identityService.GetUserId()).CountAsync();
+            var userId = _identityService.GetUserId();
+            var count = await _context.Notifications.Where(e => e.isRead == false && e.ReceiverId == userId && e.SenderId!=userId).CountAsync();
             return count;
              
         }

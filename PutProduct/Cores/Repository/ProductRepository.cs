@@ -209,7 +209,7 @@ namespace PutProduct.Cores.Repository
             var commentData = await _context.Comments.AddAsync(commentMap);
          await _context.SaveChangesAsync();
          var productOwner = _context.Products.FirstOrDefault(e => e.Id == comment.ProductId);
-        await Notify(new NotificationModel(){Message = "Comment By "+userName+" "+comment.Message,ReceiverId = productOwner.UserId});
+        await Notify(new NotificationModel(){Message = "Comment By "+userName+" "+comment.Message,ReceiverId = productOwner.UserId,SenderId =_user.GetUserId()});
         await _context.Database.CommitTransactionAsync();
         var result = _context.Comments.Include(e => e.User).FirstOrDefault(e => e.Id == commentData.Entity.Id);
          return _mapper.Map<Comment,CommentModel>(result);
@@ -271,8 +271,9 @@ namespace PutProduct.Cores.Repository
 
         private async Task Notify(NotificationModel model)
         {
-            _context.Notifications.Add(new Notification() {ReceiverId = model.ReceiverId, Message = model.Message});
+            var notification = _context.Notifications.Add(new Notification() {ReceiverId = model.ReceiverId, Message = model.Message});
            await _context.SaveChangesAsync();
+           model.Id = notification.Entity.Id;
            await _hubContext.Clients.All.BroadcastNotification(model);
         }
     }

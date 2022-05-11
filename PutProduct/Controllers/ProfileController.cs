@@ -27,8 +27,7 @@ namespace PutProduct.Controllers
         }
         [Route(nameof(Index)+"/{id}")]
         [HttpGet()]
-        [Authorize]
-        public async Task<IActionResult> Index(string id)
+         public async Task<IActionResult> Index(string id)
         {
             var user = await _ctx.User!.FirstOrDefaultAsync(e => e.Id == id);
             var profile = user?.profile;
