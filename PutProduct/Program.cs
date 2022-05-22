@@ -29,6 +29,7 @@ builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddTransient<IProductRepository,ProductRepository>();
 builder.Services.AddTransient<IIdentityService, IdentityExtensions>();
 builder.Services.AddTransient<INotificationRepository, NotificationRepository>();
+builder.Services.AddTransient<IUserRepository,UserRepository>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("_myAllowSpecificOrigins",

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PutProduct.abstracts.Repository;
 using PutProduct.abstracts.Services;
 using PutProduct.Data;
 using PutProduct.Data.Migrations;
@@ -17,17 +18,18 @@ namespace PutProduct.Controllers
     public class IdentityController : ControllerBase
     {
         private readonly UserManager<User> _manager;
-     
+        private readonly IUserRepository _userRepository;
         private readonly IJwtService _jwt;
         private readonly IIdentityService _user;
 
          
-        public IdentityController(UserManager<User> manager,IJwtService jwt,IIdentityService user)
+        public IdentityController(IUserRepository userRepository, UserManager<User> manager,IJwtService jwt,IIdentityService user)
         {
             this._manager = manager; 
             this._jwt= jwt;
             _user= user;
-           
+            _userRepository = userRepository;
+
         }
         [Route(nameof(Register))]
         [HttpPost]
@@ -84,6 +86,22 @@ namespace PutProduct.Controllers
         {
             var user= _user.GetUserId();
 
+            return Ok(user);
+        }
+
+        [Route(nameof(checkUserName))]
+        [HttpGet]
+        public async Task<IActionResult> checkUserName(string name)
+        {
+            var user = await _userRepository.checkUsername(name);
+            return Ok(user);
+        }
+
+        [Route(nameof(checkEmail))]
+        [HttpGet]
+        public async Task<IActionResult> checkEmail(string email)
+        {
+            var user = await _userRepository.checkEmailAddress(email);
             return Ok(user);
         }
     }
