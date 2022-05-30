@@ -142,7 +142,7 @@ namespace PutProduct.Cores.Repository
             {
                 Order = new Order()
                 {
-                    totalPrice = totalPrice,
+                    totalPrice = totalPrice, 
                     UserId = _user.GetUserId(),
                     OrderTime = DateTime.Now
                     
@@ -179,7 +179,7 @@ namespace PutProduct.Cores.Repository
 
             }
 
-           await _context.Database.CommitTransactionAsync();
+            await _context.Database.CommitTransactionAsync();
             if (!fail)
             {
                 return true;
@@ -267,6 +267,19 @@ namespace PutProduct.Cores.Repository
             _context.Comments.Remove(comment);
            await _context.SaveChangesAsync();
            return true;
+        }
+
+        public async Task<decimal> checkPromoCode(string code, decimal amount)
+        {
+            var promoCode = await _context.Discounts.SingleOrDefaultAsync(e => e.Name == code);
+            
+            if (promoCode == null ||promoCode.ExpireTime < DateTime.Now )
+            {
+                return 0;
+            }
+
+            var totalAfterGift = amount * (decimal)(promoCode.DiscountValue / 100);
+            return totalAfterGift;
         }
 
         private async Task Notify(NotificationModel model)

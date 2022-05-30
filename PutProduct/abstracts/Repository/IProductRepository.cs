@@ -22,5 +22,9 @@ namespace PutProduct.abstracts.Repository
 
         Task<bool> UpdateComment(UpdateCommentModel comment);
         Task<bool> DeleteComment(int id);
+
+        Task<decimal> checkPromoCode(string code, decimal amount);
+
+
     }
 }

@@ -186,7 +186,19 @@ namespace PutProduct.Controllers
             return Ok(new {message= "Comment Deleted Successfully" });
         }
 
-        
+
+        [Route(nameof(checkPromoCode))]
+        [HttpGet]
+        public async Task<IActionResult> checkPromoCode(string code,decimal amount)
+        {
+            var result = await _productRepository.checkPromoCode(code, amount);
+            if (result == 0)
+                return Ok("PromoCode Wrong!");
+
+            return Ok(result);
+        }
+
+
 
     }
 
