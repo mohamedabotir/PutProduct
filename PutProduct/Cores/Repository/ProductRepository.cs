@@ -194,7 +194,7 @@ namespace PutProduct.Cores.Repository
         public IEnumerable<Order> GetAllOrders()
         {
             var userId = _user.GetUserId();
-            var orders = _context.Orders.Where(e => e.UserId == userId).Include(e=>e.OrderProducts).ThenInclude(e=>e.Product).AsEnumerable();
+            var orders = _context.Orders.Include(e=>e.OrderProducts).ThenInclude(e=>e.Product).AsEnumerable();
             return orders;
         }
 
@@ -280,6 +280,33 @@ namespace PutProduct.Cores.Repository
 
             var totalAfterGift = amount * (decimal)(promoCode.DiscountValue / 100);
             return totalAfterGift;
+        }
+
+        public async Task<Dictionary<ProductModel, int>> GetMostPopularProducts()
+        {
+            var allProduct = await RetrieveAllProducts();
+            var purchased = _context.OrderProducts.Select(e=>e);
+            var mostPopularProducts = new Dictionary<ProductModel, int>();
+
+            foreach (var product in purchased)
+            {
+                if(mostPopularProducts.ContainsKey(allProduct.First(e => e.Id == product.Id)))
+                {
+                    int count = 0;
+                    mostPopularProducts.TryGetValue(allProduct.First(e => e.Id == product.Id),out count);
+                    mostPopularProducts.Add(allProduct.First(e => e.Id == product.Id), count++);
+
+                }
+                else
+                {
+                    mostPopularProducts.Add(allProduct.First(e => e.Id == product.Id), 1);
+
+
+                }
+
+            }
+
+            return mostPopularProducts;
         }
 
         private async Task Notify(NotificationModel model)

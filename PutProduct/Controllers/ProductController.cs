@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Net.Mime;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
@@ -6,6 +8,7 @@ using PutProduct.abstracts.Repository;
 using PutProduct.abstracts.Services;
 using PutProduct.Hubs;
 using PutProduct.Model;
+using JsonConverter = Newtonsoft.Json.JsonConverter;
 
 namespace PutProduct.Controllers
 {
@@ -198,8 +201,20 @@ namespace PutProduct.Controllers
             return Ok(result);
         }
 
+        [Route(nameof(MostPopularProduct))]
+        [HttpGet]
+        [Produces("application/json")]
+         
+        public async Task<IActionResult> MostPopularProduct()
+        {
+           
+            var result = await _productRepository.GetMostPopularProducts();
 
+             
+            return Ok(result.Keys);
+        }
 
+         
     }
 
 

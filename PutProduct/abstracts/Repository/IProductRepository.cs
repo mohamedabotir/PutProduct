@@ -24,7 +24,7 @@ namespace PutProduct.abstracts.Repository
         Task<bool> DeleteComment(int id);
 
         Task<decimal> checkPromoCode(string code, decimal amount);
-
+        Task<Dictionary<ProductModel, int>> GetMostPopularProducts();
 
     }
 }
