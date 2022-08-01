@@ -316,5 +316,18 @@ namespace PutProduct.Cores.Repository
            model.Id = notification.Entity.Id;
            await _hubContext.Clients.All.BroadcastNotification(model);
         }
+
+        public async Task<bool> CreatePromoCode(PromoCodeModel model)
+        {
+
+            var code = _context.Discounts.Add(_mapper.Map<PromoCodeModel, Discount>(model));
+            await _context.SaveChangesAsync();
+            if(code.Entity.Id > 0)
+            {
+                return true;
+            }
+            return false;
+
+        }
     }
 }

@@ -26,5 +26,7 @@ namespace PutProduct.abstracts.Repository
         Task<decimal> checkPromoCode(string code, decimal amount);
         Task<Dictionary<ProductModel, int>> GetMostPopularProducts();
 
+        Task<bool> CreatePromoCode(PromoCodeModel model);
+
     }
 }

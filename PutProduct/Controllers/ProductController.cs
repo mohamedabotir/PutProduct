@@ -201,6 +201,20 @@ namespace PutProduct.Controllers
             return Ok(result);
         }
 
+
+        [Route(nameof(CreatePromoCode))]
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> CreatePromoCode(PromoCodeModel model)
+        {
+            var result = await _productRepository.CreatePromoCode(model);
+            if (result is false)
+                return Ok(result);
+
+            return Ok(result);
+        }
+
+
         [Route(nameof(MostPopularProduct))]
         [HttpGet]
         [Produces("application/json")]
