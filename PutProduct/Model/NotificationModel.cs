@@ -10,5 +10,6 @@
         public string? ReceiverName { get; set; }
         public string Message { get; set; }
         public bool isRead { get; set; }
+        public int ProductId { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace PutProduct.Data
         public DateTime? ModifiedOn { get; set; }
         public string? DeletedBy { get; set; }
         public DateTime? DeletedOn { get; set; }
+       
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
 
         public bool isRead { get; set; }
     }
