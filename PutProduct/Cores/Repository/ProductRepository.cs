@@ -285,28 +285,44 @@ namespace PutProduct.Cores.Repository
         public async Task<Dictionary<ProductModel, int>> GetMostPopularProducts()
         {
             var allProduct = await RetrieveAllProducts();
-            var purchased = _context.OrderProducts.Select(e=>e);
-            var mostPopularProducts = new Dictionary<ProductModel, int>();
+            var purchased = _context.OrderProducts.Select(e => e);
+            var mostPopularProducts = new Dictionary<int, int>();
 
             foreach (var product in purchased)
             {
-                if(mostPopularProducts.ContainsKey(allProduct.First(e => e.Id == product.Id)))
+                var prod = product;
+                var key = allProduct.FirstOrDefault(e => e.Id == product.ProductId);
+                var condition = mostPopularProducts.ContainsKey(product.ProductId);
+                if (condition)
                 {
                     int count = 0;
-                    mostPopularProducts.TryGetValue(allProduct.First(e => e.Id == product.Id),out count);
-                    mostPopularProducts.Add(allProduct.First(e => e.Id == product.Id), count++);
+                    mostPopularProducts.TryGetValue(product.ProductId, out count);
+                    mostPopularProducts.Remove(product.ProductId);
+                    mostPopularProducts.Add(product.ProductId, ++count);
 
                 }
                 else
                 {
-                    mostPopularProducts.Add(allProduct.First(e => e.Id == product.Id), 1);
+                    mostPopularProducts.Add(product.ProductId, 1);
 
 
                 }
 
             }
+            var result = new Dictionary<ProductModel, int>();
 
-            return mostPopularProducts;
+            foreach (var product in mostPopularProducts)
+            {
+                var p = product;
+
+                var prod = allProduct.FirstOrDefault(e => e.Id == product.Key);
+                if (prod == null)
+                {
+                    continue;
+                }
+                result.Add(prod, product.Value);
+            }
+            return result;
         }
 
         private async Task Notify(NotificationModel model)
